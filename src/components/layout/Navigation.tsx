@@ -6,33 +6,58 @@ import { usePathname } from "next/navigation";
 export default function Navigation() {
   const pathname = usePathname();
 
+  const handleCodexClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      // If we're on homepage, scroll to codex section
+      const codexSection = document.getElementById("codex-section");
+      if (codexSection) {
+        codexSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // If we're on another page, navigate to homepage
+      window.location.href = "/#codex-section";
+    }
+  };
+
   const navItems = [
     { name: "HOME", href: "/" },
-    { name: "CODEX", href: "/codex" },
+    { name: "CODEX", href: "/codex", onClick: handleCodexClick },
     { name: "PROJECTS", href: "/projects" },
     { name: "ABOUT", href: "/about" },
     { name: "CONTACT", href: "/contact" },
   ];
 
   return (
-    <nav className="w-full bg-transparent absolute top-0 z-50">
+    <nav
+      className="w-full fixed top-0 z-50"
+      style={{ backgroundColor: "transparent" }}
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center h-20">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <div className="text-xl font-medium text-[#0E0E43]">
-              Nikita Quazi
+            <div className="text-[#0E0E43] font-medium text-[20px] tracking-[0.2px] w-[35px] h-[16px] leading-normal font-ruwudu">
+              NQ.
             </div>
           </Link>
 
+          {/* Gap between logo and navigation */}
+          <div className="w-[189px]"></div>
+
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="flex items-center space-x-16">
+            <div className="flex items-center gap-[68px]">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`px-3 py-2 text-lg font-normal transition-colors duration-200 ${
+                  onClick={item.onClick}
+                  className={`p-[10px] font-kanit font-normal transition-colors duration-200 ${
+                    item.name === "PROJECTS"
+                      ? "text-[24px] leading-[1.495]"
+                      : "text-[18px] leading-[1.495]"
+                  } ${
                     pathname === item.href
                       ? "text-[#0E0E43] font-medium"
                       : "text-[#000000] hover:text-[#0E0E43]"
@@ -78,6 +103,7 @@ export default function Navigation() {
             <Link
               key={item.name}
               href={item.href}
+              onClick={item.onClick}
               className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
                 pathname === item.href
                   ? "text-[#0E0E43] bg-gray-50"

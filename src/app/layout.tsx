@@ -43,9 +43,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ubuntu.variable} ${sansita.variable} ${kanit.variable} antialiased min-h-screen`}
+        suppressHydrationWarning={true}
       >
         <Navigation />
         <main className="min-h-screen">{children}</main>
