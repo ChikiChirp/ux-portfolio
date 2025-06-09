@@ -85,7 +85,7 @@ export default function HeroSection() {
                 <p className="font-ubuntu font-medium text-base leading-[1.67] text-black">
                   In{" "}
                   <a
-                    href="/projects"
+                    href="#projects-section"
                     className="text-[#FF1F8E] underline font-medium hover:opacity-80 transition-opacity"
                   >
                     PROJECTS
@@ -99,93 +99,99 @@ export default function HeroSection() {
             {/* Right - Three Project Cards */}
             <div className="flex gap-6">
               {/* OAK Equipment Project - Large Card */}
-              <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px]">
-                <div className="flex flex-col gap-5 w-[255px]">
-                  <div className="flex flex-col items-center gap-0 w-full">
-                    <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
-                      <Image
-                        src="/figma-assets/oak-equipment-mockup.jpg"
-                        alt="3D Planner - OAK Equipment"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
-                      3D PLANNER - OAK EQUIPMENT
-                    </h3>
-                  </div>
-                  <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
-                    <span className="font-kanit text-[18px] leading-[1.49]">
-                      UX & UI DESIGN
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Solenia Project - Medium Card */}
-              <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px]">
-                <div className="flex flex-col gap-5 w-[255px]">
-                  <div className="flex flex-col items-center gap-0 w-full">
-                    <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
-                      {/* Base image */}
-                      <Image
-                        src="/figma-assets/solenia-base-image.jpg"
-                        alt="Solenia Base"
-                        fill
-                        className="object-stretch"
-                      />
-                      {/* Overlay SVG */}
-                      <div className="absolute inset-0 flex items-center justify-center">
+              <a href="#projects-section" className="group cursor-pointer">
+                <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] hover:shadow-lg transition-shadow duration-300">
+                  <div className="flex flex-col gap-5 w-[255px]">
+                    <div className="flex flex-col items-center gap-0 w-full">
+                      <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
                         <Image
-                          src="/figma-assets/solenia-overlay.svg"
-                          alt="Solenia Overlay"
-                          width={120}
-                          height={80}
-                          className="object-contain"
+                          src="/figma-assets/oak-equipment-mockup.jpg"
+                          alt="3D Planner - OAK Equipment"
+                          fill
+                          className="object-cover"
                         />
                       </div>
+                      <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
+                        3D PLANNER - OAK EQUIPMENT
+                      </h3>
                     </div>
-                    <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
-                      WEBSHOP - SOLENIA
-                    </h3>
-                  </div>
-                  <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
-                    <span className="font-kanit text-[18px] leading-[1.49]">
-                      WEBSITE DESIGN
-                    </span>
+                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
+                      <span className="font-kanit text-[18px] leading-[1.49]">
+                        UX & UI DESIGN
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
+
+              {/* Solenia Project - Medium Card */}
+              <a href="#projects-section" className="group cursor-pointer">
+                <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] hover:shadow-lg transition-shadow duration-300">
+                  <div className="flex flex-col gap-5 w-[255px]">
+                    <div className="flex flex-col items-center gap-0 w-full">
+                      <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
+                        {/* Base image */}
+                        <Image
+                          src="/figma-assets/solenia-base-image.jpg"
+                          alt="Solenia Base"
+                          fill
+                          className="object-stretch"
+                        />
+                        {/* Overlay SVG */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <Image
+                            src="/figma-assets/solenia-overlay.svg"
+                            alt="Solenia Overlay"
+                            width={120}
+                            height={80}
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                      <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
+                        WEBSHOP - SOLENIA
+                      </h3>
+                    </div>
+                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
+                      <span className="font-kanit text-[18px] leading-[1.49]">
+                        WEBSITE DESIGN
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
 
               {/* Stalltid Project - Medium Card */}
-              <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px]">
-                <div className="flex flex-col gap-5 w-[255px]">
-                  <div className="flex flex-col items-center gap-0 w-full">
-                    <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
-                      <Image
-                        src="/figma-assets/stalltid-project.jpg"
-                        alt="Booking System - Stalltid"
-                        fill
-                        className="object-cover"
-                      />
+              <a href="#projects-section" className="group cursor-pointer">
+                <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] hover:shadow-lg transition-shadow duration-300">
+                  <div className="flex flex-col gap-5 w-[255px]">
+                    <div className="flex flex-col items-center gap-0 w-full">
+                      <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
+                        <Image
+                          src="/figma-assets/stalltid-project.jpg"
+                          alt="Booking System - Stalltid"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
+                        BOOKING SYSTEM - STALLTID
+                      </h3>
                     </div>
-                    <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
-                      BOOKING SYSTEM - STALLTID
-                    </h3>
-                  </div>
-                  <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
-                    <span className="font-kanit text-[18px] leading-[1.49]">
-                      VISUAL IDENTITY
-                    </span>
+                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
+                      <span className="font-kanit text-[18px] leading-[1.49]">
+                        VISUAL IDENTITY
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
 
           {/* CTA Button */}
           <div className="text-center pb-16">
-            <Button variant="primary" size="lg" href="/codex">
+            <Button variant="primary" size="lg" href="#codex-section">
               LET&apos;S EXPLORE
             </Button>
             <div className="animate-bounce mt-4">

@@ -3,6 +3,8 @@
 @layer base {
   @import url("https://fonts.googleapis.com/css2?family=Ruwudu:wght@400;500;600;700&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700;800&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&display=swap");
 }
 
 :root {
@@ -15,9 +17,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-ubuntu: var(--font-ubuntu);
+  --font-ubuntu: "Ubuntu", sans-serif;
   --font-sansita: var(--font-sansita);
-  --font-kanit: var(--font-kanit);
+  --font-kanit: "Kanit", sans-serif;
   --font-ruwudu: "Ruwudu", serif;
   --font-ubuntu-sans: "Ubuntu Sans", sans-serif;
 }
@@ -56,4 +58,34 @@ nav * {
 /* Override any possible Tailwind or browser nav styling */
 .fixed {
   background: transparent !important;
+}
+
+/* Custom smooth parallax animations */
+.parallax-element {
+  will-change: transform;
+  transform-style: preserve-3d;
+  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating animation for background elements */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-animation:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.float-animation:nth-child(3) {
+  animation-delay: -4s;
 }

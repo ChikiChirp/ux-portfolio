@@ -46,46 +46,32 @@ export default function Projects() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex justify-center gap-6">
           {projects.map((project) => (
-            <Link key={project.id} href={project.href} className="group">
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
-                <div className="aspect-video overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    width={400}
-                    height={250}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <span className="inline-block bg-[#050526] text-[#FDF7F7] px-3 py-1 rounded text-sm font-medium mb-3">
-                    {project.category}
-                  </span>
-                  <h3 className="text-xl font-bold text-black mb-3 group-hover:text-[#FF0364] transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
-                    {project.description}
-                  </p>
-                  <div className="flex items-center mt-4 text-[#FF0364] opacity-0 group-hover:opacity-100 transition-all duration-200">
-                    <span className="text-sm font-medium mr-2">
-                      View Project
-                    </span>
-                    <svg
-                      className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+            <Link
+              key={project.id}
+              href={project.href}
+              className="group cursor-pointer"
+            >
+              <div className="bg-[#FDFDFD] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 w-[285px] h-[419px] p-[15px_15px_21px]">
+                <div className="flex flex-col gap-5 w-[255px]">
+                  <div className="flex flex-col items-center gap-0 w-full">
+                    <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
                       />
-                    </svg>
+                    </div>
+                    <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
+                      {project.title}
+                    </h3>
+                  </div>
+                  <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
+                    <span className="font-kanit text-[18px] leading-[1.49]">
+                      {project.category}
+                    </span>
                   </div>
                 </div>
               </div>
