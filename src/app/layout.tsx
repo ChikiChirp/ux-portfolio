@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Ubuntu, Sansita, Kanit } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/layout/Navigation";
+import SmoothScrollProvider from "@/components/shared/SmoothScrollProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,13 +44,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ubuntu.variable} ${sansita.variable} ${kanit.variable} antialiased min-h-screen`}
         suppressHydrationWarning={true}
       >
-        <Navigation />
-        <main className="min-h-screen">{children}</main>
+        <SmoothScrollProvider>
+          <Navigation />
+          <main className="min-h-screen">{children}</main>
+        </SmoothScrollProvider>
       </body>
     </html>
   );

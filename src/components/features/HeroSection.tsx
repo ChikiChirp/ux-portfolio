@@ -3,13 +3,16 @@
 import Image from "next/image";
 import Button from "../shared/Button";
 import SocialLinks from "../shared/SocialLinks";
-import ParallaxSection from "../shared/ParallaxSection";
+import AdvancedParallaxSection from "../shared/AdvancedParallaxSection";
+import ZoomTransition from "../shared/ZoomTransition";
 
 export default function HeroSection() {
   return (
-    <ParallaxSection
+    <AdvancedParallaxSection
       className="bg-gradient-to-b from-[#9ACBFF] to-[#FADDDD]"
-      speed={0.3}
+      speed={0.6}
+      scaleRange={[1, 1.3]}
+      opacityRange={[1, 0.8]}
       height="100vh"
     >
       <section className="min-h-screen relative overflow-hidden pt-30">
@@ -99,8 +102,13 @@ export default function HeroSection() {
             {/* Right - Three Project Cards */}
             <div className="flex gap-6">
               {/* OAK Equipment Project - Large Card */}
-              <a href="#projects-section" className="group cursor-pointer">
-                <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] hover:shadow-lg transition-shadow duration-300">
+              <ZoomTransition
+                href="/projects/oak"
+                imageSrc="/figma-assets/oak-equipment-mockup.jpg"
+                imageAlt="3D Planner - OAK Equipment"
+                className="group"
+              >
+                <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
                       <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
@@ -108,7 +116,7 @@ export default function HeroSection() {
                           src="/figma-assets/oak-equipment-mockup.jpg"
                           alt="3D Planner - OAK Equipment"
                           fill
-                          className="object-cover"
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                       </div>
                       <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
@@ -122,11 +130,16 @@ export default function HeroSection() {
                     </div>
                   </div>
                 </div>
-              </a>
+              </ZoomTransition>
 
               {/* Solenia Project - Medium Card */}
-              <a href="#projects-section" className="group cursor-pointer">
-                <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] hover:shadow-lg transition-shadow duration-300">
+              <ZoomTransition
+                href="/projects/webshop-solenia"
+                imageSrc="/figma-assets/solenia-base-image.jpg"
+                imageAlt="Webshop - Solenia"
+                className="group"
+              >
+                <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
                       <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
@@ -135,10 +148,10 @@ export default function HeroSection() {
                           src="/figma-assets/solenia-base-image.jpg"
                           alt="Solenia Base"
                           fill
-                          className="object-stretch"
+                          className="object-stretch transition-transform duration-300 group-hover:scale-110"
                         />
                         {/* Overlay SVG */}
-                        <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                           <Image
                             src="/figma-assets/solenia-overlay.svg"
                             alt="Solenia Overlay"
@@ -159,11 +172,16 @@ export default function HeroSection() {
                     </div>
                   </div>
                 </div>
-              </a>
+              </ZoomTransition>
 
               {/* Stalltid Project - Medium Card */}
-              <a href="#projects-section" className="group cursor-pointer">
-                <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] hover:shadow-lg transition-shadow duration-300">
+              <ZoomTransition
+                href="/projects/stalltid"
+                imageSrc="/figma-assets/stalltid-project.jpg"
+                imageAlt="Booking System - Stalltid"
+                className="group"
+              >
+                <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
                       <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
@@ -171,7 +189,7 @@ export default function HeroSection() {
                           src="/figma-assets/stalltid-project.jpg"
                           alt="Booking System - Stalltid"
                           fill
-                          className="object-cover"
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                       </div>
                       <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
@@ -185,7 +203,7 @@ export default function HeroSection() {
                     </div>
                   </div>
                 </div>
-              </a>
+              </ZoomTransition>
             </div>
           </div>
 
@@ -212,6 +230,6 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
-    </ParallaxSection>
+    </AdvancedParallaxSection>
   );
 }

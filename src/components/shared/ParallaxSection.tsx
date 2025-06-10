@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 interface ParallaxSectionProps {
   children: React.ReactNode;
@@ -20,51 +20,65 @@ export default function ParallaxSection({
   id,
 }: ParallaxSectionProps) {
   const parallaxRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const requestRef = useRef<number | undefined>(undefined);
+  const previousTimeRef = useRef<number | undefined>(undefined);
+
+  const animate = useCallback(
+    (time: number) => {
+      if (!parallaxRef.current || !backgroundRef.current || !contentRef.current)
+        return;
+
+      if (previousTimeRef.current !== undefined) {
+        const element = parallaxRef.current;
+        const background = backgroundRef.current;
+        const content = contentRef.current;
+        const rect = element.getBoundingClientRect();
+        const scrolled = window.pageYOffset;
+
+        // Calculate parallax offset based on element position and speed
+        const elementTop = element.offsetTop;
+        const windowHeight = window.innerHeight;
+
+        // Apply transform when element is in viewport or nearby for smoother effect
+        if (rect.bottom >= -200 && rect.top <= windowHeight + 200) {
+          const yPos = -(scrolled - elementTop) * speed;
+
+          // Use transform3d for hardware acceleration and better performance
+          background.style.transform = `translate3d(0, ${yPos}px, 0)`;
+
+          // Slight different speed for content to create depth
+          const contentYPos = -(scrolled - elementTop) * (speed * 0.1);
+          content.style.transform = `translate3d(0, ${contentYPos}px, 0)`;
+        }
+      }
+
+      previousTimeRef.current = time;
+      requestRef.current = requestAnimationFrame(animate);
+    },
+    [speed]
+  );
 
   useEffect(() => {
+    requestRef.current = requestAnimationFrame(animate);
+
+    // Passive scroll listener for better performance
     const handleScroll = () => {
-      if (!parallaxRef.current || !contentRef.current) return;
-
-      const element = parallaxRef.current;
-      const content = contentRef.current;
-      const rect = element.getBoundingClientRect();
-      const scrolled = window.pageYOffset;
-
-      // Calculate parallax offset based on element position and speed
-      const elementTop = element.offsetTop;
-      const windowHeight = window.innerHeight;
-
-      // Apply transform when element is in viewport or nearby for smoother effect
-      if (rect.bottom >= -200 && rect.top <= windowHeight + 200) {
-        const yPos = -(scrolled - elementTop) * speed;
-
-        // Apply transform to content for smoother effect with hardware acceleration
-        content.style.transform = `translate3d(0, ${yPos}px, 0)`;
+      if (!requestRef.current) {
+        requestRef.current = requestAnimationFrame(animate);
       }
     };
 
-    // Use requestAnimationFrame for smooth scrolling
-    let ticking = false;
-    const optimizedHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", optimizedHandleScroll, { passive: true });
-
-    // Initial call
-    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", optimizedHandleScroll);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [speed]);
+  }, [animate]);
 
   return (
     <div
@@ -75,11 +89,14 @@ export default function ParallaxSection({
     >
       {backgroundImage && (
         <div
+          ref={backgroundRef}
           className="absolute inset-0 w-full h-[120%] bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url(${backgroundImage})`,
             willChange: "transform",
             transformStyle: "preserve-3d",
+            backfaceVisibility: "hidden",
+            transform: "translate3d(0, 0, 0)", // Force hardware acceleration
           }}
         />
       )}
@@ -89,6 +106,8 @@ export default function ParallaxSection({
         style={{
           willChange: "transform",
           transformStyle: "preserve-3d",
+          backfaceVisibility: "hidden",
+          transform: "translate3d(0, 0, 0)", // Force hardware acceleration
         }}
       >
         {children}
