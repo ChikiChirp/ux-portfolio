@@ -123,8 +123,9 @@ export default function HeroSection() {
                         3D PLANNER - OAK EQUIPMENT
                       </h3>
                     </div>
-                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
-                      <span className="font-kanit text-[18px] leading-[1.49]">
+                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit relative overflow-hidden cursor-pointer button-shine">
+                      <div className="absolute inset-0 w-[100px] h-full bg-gradient-to-r from-transparent via-white/80 to-transparent top-0 -left-[100px] opacity-60 shine-overlay"></div>
+                      <span className="font-kanit text-[18px] leading-[1.49] relative z-10">
                         UX & UI DESIGN
                       </span>
                     </div>
@@ -165,8 +166,9 @@ export default function HeroSection() {
                         WEBSHOP - SOLENIA
                       </h3>
                     </div>
-                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
-                      <span className="font-kanit text-[18px] leading-[1.49]">
+                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit relative overflow-hidden cursor-pointer button-shine">
+                      <div className="absolute inset-0 w-[100px] h-full bg-gradient-to-r from-transparent via-white/80 to-transparent top-0 -left-[100px] opacity-60 shine-overlay"></div>
+                      <span className="font-kanit text-[18px] leading-[1.49] relative z-10">
                         WEBSITE DESIGN
                       </span>
                     </div>
@@ -196,8 +198,9 @@ export default function HeroSection() {
                         BOOKING SYSTEM - STALLTID
                       </h3>
                     </div>
-                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit">
-                      <span className="font-kanit text-[18px] leading-[1.49]">
+                    <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit relative overflow-hidden cursor-pointer button-shine">
+                      <div className="absolute inset-0 w-[100px] h-full bg-gradient-to-r from-transparent via-white/80 to-transparent top-0 -left-[100px] opacity-60 shine-overlay"></div>
+                      <span className="font-kanit text-[18px] leading-[1.49] relative z-10">
                         VISUAL IDENTITY
                       </span>
                     </div>
