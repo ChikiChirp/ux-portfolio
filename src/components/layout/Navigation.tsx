@@ -6,24 +6,34 @@ import { usePathname } from "next/navigation";
 export default function Navigation() {
   const pathname = usePathname();
 
-  const handleCodexClick = (e: React.MouseEvent) => {
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string
+  ) => {
     e.preventDefault();
-    if (pathname === "/") {
-      // If we're on homepage, scroll to codex section
-      const codexSection = document.getElementById("codex-section");
-      if (codexSection) {
-        codexSection.scrollIntoView({ behavior: "smooth" });
-      }
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
     } else {
-      // If we're on another page, navigate to homepage
-      window.location.href = "/#codex-section";
+      window.location.href = `/#${targetId}`;
     }
   };
 
   const navItems = [
     { name: "HOME", href: "/" },
-    { name: "CODEX", href: "/codex", onClick: handleCodexClick },
-    { name: "PROJECTS", href: "/projects" },
+    {
+      name: "CODEX",
+      href: "/#codex-section",
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) =>
+        handleAnchorClick(e, "codex-section"),
+    },
+    {
+      name: "PROJECTS",
+      href: "/#projects-section",
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) =>
+        handleAnchorClick(e, "projects-section"),
+    },
     { name: "ABOUT", href: "/about" },
     { name: "CONTACT", href: "/contact" },
   ];

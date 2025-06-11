@@ -166,135 +166,126 @@ export default function Home() {
       {/* CODEX Section */}
       <EnhancedParallax
         id="codex-section"
-        className="bg-gradient-to-b from-[#BCD8FF] via-[#DFE7F3] to-[#FAE4DD]"
-        height="100vh"
+        className="bg-gradient-to-b from-[#BCD8FF] via-[#DFE7F3] to-[#FAE4DD] flex items-center justify-center py-40"
+        height="auto"
         floatingElements={true}
         intensity="medium"
       >
-        <div className="flex items-center justify-center h-full">
-          <div className="max-w-[1032px] w-full px-6 sm:px-8">
-            {/* Main Content */}
-            <div className="flex flex-col items-center gap-6">
-              {/* CODEX Title and Skills Section */}
-              <div className="flex gap-16 items-end">
-                <div className="flex flex-col gap-[58px]">
-                  {/* CODEX Title */}
-                  <div>
-                    <h1 className="text-[32px] font-ubuntu-sans font-extrabold leading-[1.2] text-black">
-                      CODEX
-                    </h1>
-                  </div>
+        <div className="max-w-[1032px] w-full px-6 sm:px-8">
+          {/* Main Content - Horizontal Layout matching Figma */}
+          <div className="flex flex-col items-center gap-6">
+            {/* Horizontal Row: CODEX Title + Skills + Tools */}
+            <div className="flex gap-16 items-start">
+              {/* CODEX Title - Left Side */}
+              <div className="flex justify-center items-center p-2.5">
+                <h1 className="text-[32px] font-ubuntu-sans font-extrabold leading-[1.2] text-black">
+                  CODEX
+                </h1>
+              </div>
 
-                  {/* Skills Card */}
-                  <div className="bg-[#DDEDFF] rounded-lg shadow-[0px_8px_19.3px_2px_rgba(56,164,236,0.07),0px_4px_4px_0px_rgba(0,0,0,0.25)] p-[10px] w-[357px]">
-                    <h2 className="text-[24px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[10px]">
-                      Skills
-                    </h2>
+              {/* Skills Card - Middle - Same height as Tools */}
+              <div className="bg-[#DDEDFF]  shadow-[0px_8px_19.3px_2px_rgba(56,164,236,0.07),0px_4px_4px_0px_rgba(0,0,0,0.25)] pt-[15px] pb-[15px] pl-[20px] pr-[20px]  w-[438px] h-[271px]">
+                <h2 className="text-[24px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[10px]">
+                  Skills
+                </h2>
 
-                    <div className="flex gap-[46px] items-end">
-                      <div className="w-[146px] flex flex-col gap-[6px]">
-                        <h3 className="text-[20px] font-ubuntu-sans font-semibold leading-[1.2] text-black">
-                          UX
-                        </h3>
-                        <div className="space-y-0">
-                          {skills.ux.map((skill, index) => (
-                            <p
-                              key={index}
-                              className="text-[18px] font-ubuntu-sans font-medium leading-[1.833] text-black"
-                            >
-                              {skill}
-                            </p>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="w-[165px] flex flex-col gap-[3px]">
-                        <h3 className="text-[20px] font-ubuntu-sans font-semibold leading-[1.2] text-black">
-                          UI
-                        </h3>
-                        <div className="space-y-0">
-                          {skills.ui.map((skill, index) => (
-                            <p
-                              key={index}
-                              className="text-[18px] font-ubuntu-sans font-medium leading-[1.778] text-black"
-                            >
-                              {skill}
-                            </p>
-                          ))}
-                        </div>
-                      </div>
+                {/* Table-like layout for perfect alignment */}
+                <div className="flex gap-[46px]">
+                  <div className="w-[146px]">
+                    <h3 className="text-[20px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[6px]">
+                      UX
+                    </h3>
+                    <div className="flex flex-col">
+                      {skills.ux.map((skill, index) => (
+                        <p
+                          key={index}
+                          className="text-[18px] font-ubuntu-sans font-medium leading-[1.833] text-black"
+                        >
+                          {skill}
+                        </p>
+                      ))}
                     </div>
                   </div>
-                </div>
 
-                {/* Tools Section */}
-                <div className="w-[297px] h-[271px] relative">
-                  <div className="bg-[#DDEDFF] rounded-lg shadow-[0px_8px_19.3px_2px_rgba(42,138,157,0.07),0px_4px_4px_0px_rgba(0,0,0,0.25)] p-[19px_5px_19px_20px] w-full h-full">
-                    <div className="absolute inset-0 bg-[#DDEDFF] rounded-lg shadow-[0px_8px_19.3px_2px_rgba(42,138,157,0.07),0px_4px_4px_0px_rgba(0,0,0,0.25)] p-[58px_21px_58px_20px]">
-                      <div className="flex flex-col items-center gap-[16px]">
-                        <h2 className="text-[24px] font-ubuntu-sans font-semibold leading-[1.2] text-black">
-                          Tools
-                        </h2>
-
-                        <div className="grid grid-cols-4 gap-x-[16px] gap-y-[12px] justify-items-center">
-                          {tools.map((tool, index) => (
-                            <div
-                              key={index}
-                              className="flex flex-col items-center gap-[3px] text-center"
-                              style={{ width: `${tool.width}px` }}
-                            >
-                              <div className="w-6 h-6 flex items-center justify-center">
-                                {tool.iconType === "svg" ? (
-                                  <Image
-                                    src={tool.icon}
-                                    alt={tool.name}
-                                    width={24}
-                                    height={24}
-                                    className="w-6 h-6"
-                                  />
-                                ) : (
-                                  <Image
-                                    src={tool.icon}
-                                    alt={tool.name}
-                                    width={24}
-                                    height={24}
-                                    className="w-6 h-6 object-contain"
-                                  />
-                                )}
-                              </div>
-                              <span className="text-[12px] font-ubuntu-sans font-medium leading-[1.5] text-black whitespace-pre-line text-center">
-                                {tool.name}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                  <div className="w-[165px]">
+                    <h3 className="text-[20px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[3px]">
+                      UI
+                    </h3>
+                    <div className="flex flex-col">
+                      {skills.ui.map((skill, index) => (
+                        <p
+                          key={index}
+                          className="text-[18px] font-ubuntu-sans font-medium leading-[1.778] text-black"
+                        >
+                          {skill}
+                        </p>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Description and Button */}
-              <div className="flex flex-col items-center gap-[70px] mt-[58px]">
-                <div className="text-center max-w-4xl px-3">
-                  <p className="text-[20px] font-ubuntu-sans font-normal leading-[1.5] text-black uppercase">
-                    I design digital journeys, aiming to connect user needs and
-                    product goals,
-                    <br />
-                    With UX as my foundation, science as my structure and
-                    illustration as my creative outlet
-                  </p>
-                </div>
+              {/* Tools Section - Right Side - Simplified */}
+              <div className="bg-[#DDEDFF] shadow-[0px_8px_19.3px_2px_rgba(42,138,157,0.07),0px_4px_4px_0px_rgba(0,0,0,0.25)] w-[297px] h-[271px] p-[15px_20px]">
+                <h2 className="text-[24px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[27px]">
+                  Tools
+                </h2>
 
-                <Button
-                  variant="primary"
-                  size="lg"
-                  href="/about"
-                  className="h-[51px] w-[187px] text-[18px] font-ubuntu-sans font-medium leading-[1.2] border-[5px] border-[#DA0B65] text-[#FF0364] opacity-[0.95]"
-                >
-                  GET TO KNOW ME
-                </Button>
+                <div className="grid grid-cols-4 gap-x-[16px] gap-y-[12px] justify-items-center">
+                  {tools.map((tool, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center gap-[3px] text-center"
+                      style={{ width: `${tool.width}px` }}
+                    >
+                      <div className="w-6 h-6 flex items-center justify-center">
+                        {tool.iconType === "svg" ? (
+                          <Image
+                            src={tool.icon}
+                            alt={tool.name}
+                            width={24}
+                            height={24}
+                            className="w-6 h-6"
+                          />
+                        ) : (
+                          <Image
+                            src={tool.icon}
+                            alt={tool.name}
+                            width={24}
+                            height={24}
+                            className="w-6 h-6 object-contain"
+                          />
+                        )}
+                      </div>
+                      <span className="text-[12px] font-ubuntu-sans font-medium leading-[1.5] text-black whitespace-pre-line text-center">
+                        {tool.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
+            </div>
+
+            {/* Description and Button */}
+            <div className="flex flex-col items-center gap-[15px] mt-[58px]">
+              <div className="w-[1000px] text-center px-3 mb-[15px]">
+                <span className="self-stretch text-[20px] font-ubuntu-sans font-normal leading-[1.5] text-black [font-variant:small-caps]">
+                  I design digital journeys, aiming to connect user needs and
+                  product goals,
+                  <br />
+                  with UX as my foundation, science as my structure and
+                  illustration as my creative outlet
+                </span>
+              </div>
+
+              <Button
+                variant="primary"
+                size="lg"
+                href="/about"
+                className="h-[51px] w-[220px] text-[18px] font-ubuntu-sans font-medium leading-[1.2] border-[5px] border-[#DA0B65] text-[#FF0364] opacity-[0.95] whitespace-nowrap"
+              >
+                GET TO KNOW ME
+              </Button>
             </div>
           </div>
         </div>

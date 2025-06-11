@@ -8,11 +8,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        ubuntu: ["Ubuntu", "sans-serif"],
+        sans: ["var(--font-ubuntu-sans)", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+        ubuntu: ["var(--font-ubuntu)", "sans-serif"],
         sansita: ["var(--font-sansita)"],
-        kanit: ["Kanit", "sans-serif"],
+        kanit: ["var(--font-kanit)", "sans-serif"],
         ruwudu: ["Ruwudu", "serif"],
-        "ubuntu-sans": ["Ubuntu Sans", "sans-serif"],
+        "ubuntu-sans": ["var(--font-ubuntu-sans)", "sans-serif"],
       },
     },
   },

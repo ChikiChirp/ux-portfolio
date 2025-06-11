@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Ubuntu, Sansita, Kanit } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Ubuntu,
+  Ubuntu_Sans,
+  Sansita,
+  Kanit,
+} from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/layout/Navigation";
 import SmoothScrollProvider from "@/components/shared/SmoothScrollProvider";
@@ -12,6 +19,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const ubuntuSans = Ubuntu_Sans({
+  variable: "--font-ubuntu-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const ubuntu = Ubuntu({
@@ -46,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ubuntu.variable} ${sansita.variable} ${kanit.variable} antialiased min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ubuntuSans.variable} ${ubuntu.variable} ${sansita.variable} ${kanit.variable} antialiased min-h-screen`}
         suppressHydrationWarning={true}
       >
         <SmoothScrollProvider>

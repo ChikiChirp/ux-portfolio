@@ -217,7 +217,7 @@ export default function HeroSection() {
             </Button>
             <div className="animate-bounce mt-4">
               <svg
-                className="w-8 h-8 text-[#FF0364] mx-auto"
+                className="w-8 h-50 text-[#FF0364] mx-auto"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
