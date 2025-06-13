@@ -30,9 +30,9 @@ export default function HeroSection() {
                 </h1>
 
                 <p className="font-ubuntu text-[14px] leading-[1.6] text-black">
-                  What draws me to UX design is how it combines analytical
-                  thinking with creative expression to create accessible and
-                  engaging experiences.
+                  What makes UX design interesting for me is how it combines
+                  analytical thinking with creative expression to create
+                  accessible and engaging experiences.
                 </p>
               </div>
 
@@ -80,7 +80,7 @@ export default function HeroSection() {
           {/* Project Preview Section */}
           <div className="flex items-center gap-6">
             {/* Left - Project Preview Info */}
-            <div className="bg-[rgba(210,224,241,0.61)] p-[18px_10px_10px_12px] rounded-lg w-[216px] h-[419px]">
+            <div className="bg-[rgba(210,224,241,0.61)] p-[18px_10px_10px_12px]  w-[216px] h-[419px]">
               <div className="space-y-[21px]">
                 <h2 className="font-ubuntu font-extrabold text-2xl leading-[1.2] text-black">
                   PROJECT PREVIEW
@@ -108,7 +108,7 @@ export default function HeroSection() {
                 imageAlt="3D Planner - OAK Equipment"
                 className="group"
               >
-                <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] transition-all duration-300">
+                <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px]  w-[285px] h-[419px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
                       <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
@@ -140,7 +140,7 @@ export default function HeroSection() {
                 imageAlt="Webshop - Solenia"
                 className="group"
               >
-                <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] transition-all duration-300">
+                <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px]  w-[285px] h-[419px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
                       <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
@@ -183,7 +183,7 @@ export default function HeroSection() {
                 imageAlt="Booking System - Stalltid"
                 className="group"
               >
-                <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] rounded-lg w-[285px] h-[419px] transition-all duration-300">
+                <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] w-[285px] h-[419px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
                       <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
