@@ -325,7 +325,7 @@ export default function Home() {
               </div>
               <ProjectCard
                 project={contractProjects[0]}
-                className="w-full h-[448px] bg-[#FDFDFD] rounded-[12px] shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+                className="w-[448px] shadow-[0_4px_16px_rgba(0,0,0,0.08)"
                 imageContainerClassName="h-[320px]"
               />
             </div>
