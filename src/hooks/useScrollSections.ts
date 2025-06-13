@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface ScrollSection {
@@ -11,45 +11,48 @@ interface ScrollSection {
 export const useScrollSections = (sections: ScrollSection[]) => {
   const router = useRouter();
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const currentSectionRef = useRef<string>("");
+  const [currentSection, setCurrentSection] = useState<string>("");
 
-  useEffect(() => {
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-          const sectionId = entry.target.id;
-          const section = sections.find((s) => s.id === sectionId);
+  useLayoutEffect(() => {
+    // Wait for DOM to be ready
+    const timeout = setTimeout(() => {
+      const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+            const sectionId = entry.target.id;
+            const section = sections.find((s) => s.id === sectionId);
 
-          if (section && currentSectionRef.current !== section.slug) {
-            currentSectionRef.current = section.slug;
-
-            // Update URL without causing page refresh
-            const newUrl = section.slug === "/" ? "/" : `/${section.slug}`;
-            window.history.replaceState(null, "", newUrl);
+            if (section && currentSection !== section.slug) {
+              setCurrentSection(section.slug);
+              // Update URL without causing page refresh
+              const newUrl = section.slug === "/" ? "/" : `/${section.slug}`;
+              window.history.replaceState(null, "", newUrl);
+            }
           }
+        });
+      };
+
+      observerRef.current = new IntersectionObserver(handleIntersection, {
+        threshold: [0.3],
+        rootMargin: "0px",
+      });
+
+      // Observe all sections
+      sections.forEach((section) => {
+        const element = document.getElementById(section.id);
+        if (element && observerRef.current) {
+          observerRef.current.observe(element);
         }
       });
-    };
-
-    observerRef.current = new IntersectionObserver(handleIntersection, {
-      threshold: [0.5],
-      rootMargin: "-20% 0px -20% 0px",
-    });
-
-    // Observe all sections
-    sections.forEach((section) => {
-      const element = document.getElementById(section.id);
-      if (element && observerRef.current) {
-        observerRef.current.observe(element);
-      }
-    });
+    }, 100); // Delay to ensure DOM is ready
 
     return () => {
+      clearTimeout(timeout);
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
     };
-  }, [sections, router]);
+  }, [sections, router, currentSection]);
 
-  return currentSectionRef.current;
+  return currentSection;
 };

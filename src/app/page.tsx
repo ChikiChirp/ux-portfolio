@@ -117,10 +117,27 @@ export default function Home() {
     },
   ];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ProjectCard = ({ project }: { project: any }) => (
-    <div className="bg-[#FDFDFD] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-      <div className="h-32 w-full relative overflow-hidden">
+  // A flexible ProjectCard that accepts a className to control width and other styles
+  const ProjectCard = ({
+    project,
+    className,
+    imageContainerClassName,
+  }: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    project: any;
+    className?: string;
+    imageContainerClassName?: string;
+  }) => (
+    <div
+      className={`bg-[#FDFDFD] rounded-[12px] shadow-[0_4px_16px_rgba(0,0,0,0.08)] overflow-hidden ${
+        className || ""
+      }`}
+    >
+      <div
+        className={`w-full relative overflow-hidden ${
+          imageContainerClassName || ""
+        }`}
+      >
         {project.image ? (
           <Image
             src={project.image}
@@ -138,8 +155,8 @@ export default function Home() {
           </div>
         )}
       </div>
-      <div className="p-4">
-        <p className="text-[18px] font-ubuntu-sans font-normal leading-[1.667] text-black whitespace-pre-line">
+      <div className="px-5 py-4">
+        <p className="text-[18px] font-ubuntu-sans font-normal leading-[1.667] text-black whitespace-pre-line text-left">
           {project.title}
         </p>
         {project.href && (
@@ -172,24 +189,17 @@ export default function Home() {
         intensity="medium"
       >
         <div className="max-w-[1032px] w-full px-6 sm:px-8">
-          {/* Main Content - Horizontal Layout matching Figma */}
           <div className="flex flex-col items-center gap-6">
-            {/* Horizontal Row: CODEX Title + Skills + Tools */}
             <div className="flex gap-16 items-start">
-              {/* CODEX Title - Left Side */}
               <div className="flex justify-center items-center p-2.5">
                 <h1 className="text-[32px] font-ubuntu-sans font-extrabold leading-[1.2] text-black">
                   CODEX
                 </h1>
               </div>
-
-              {/* Skills Card - Middle - Same height as Tools */}
               <div className="bg-[#DDEDFF]  shadow-[0px_8px_19.3px_2px_rgba(56,164,236,0.07),0px_4px_4px_0px_rgba(0,0,0,0.25)] pt-[15px] pb-[15px] pl-[20px] pr-[20px]  w-[438px] h-[271px]">
                 <h2 className="text-[24px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[10px]">
                   Skills
                 </h2>
-
-                {/* Table-like layout for perfect alignment */}
                 <div className="flex gap-[46px]">
                   <div className="w-[146px]">
                     <h3 className="text-[20px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[6px]">
@@ -206,7 +216,6 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
-
                   <div className="w-[165px]">
                     <h3 className="text-[20px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[3px]">
                       UI
@@ -224,13 +233,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
-              {/* Tools Section - Right Side - Simplified */}
               <div className="bg-[#DDEDFF] shadow-[0px_8px_19.3px_2px_rgba(42,138,157,0.07),0px_4px_4px_0px_rgba(0,0,0,0.25)] w-[297px] h-[271px] p-[15px_20px]">
                 <h2 className="text-[24px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[27px]">
                   Tools
                 </h2>
-
                 <div className="grid grid-cols-4 gap-x-[16px] gap-y-[12px] justify-items-center">
                   {tools.map((tool, index) => (
                     <div
@@ -265,8 +271,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Description and Button */}
             <div className="flex flex-col items-center gap-[15px] mt-[58px]">
               <div className="w-[1000px] text-center px-3 mb-[15px]">
                 <span className="self-stretch text-[20px] font-ubuntu-sans font-normal leading-[1.5] text-black [font-variant:small-caps]">
@@ -277,7 +281,6 @@ export default function Home() {
                   illustration as my creative outlet
                 </span>
               </div>
-
               <Button
                 variant="primary"
                 size="lg"
@@ -291,7 +294,7 @@ export default function Home() {
         </div>
       </EnhancedParallax>
 
-      {/* Projects Section */}
+      {/* Projects Section - REBUILT TO MATCH FIGMA */}
       <EnhancedParallax
         id="projects-section"
         className="bg-gradient-to-b from-[#CDE1FB] to-[#EDF5FF]"
@@ -299,63 +302,76 @@ export default function Home() {
         floatingElements={true}
         intensity="light"
       >
-        <div className="flex flex-col items-center gap-[21px] py-20">
-          {/* PROJECTS Title */}
-          <div className="w-[1457px] h-[154px] bg-gradient-to-r from-[#CDE1FB] to-[#EDF5FF] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-[21px] pt-0 pb-20">
+          {/* PROJECTS Title - Changed to w-full for full-width banner */}
+          <div className="w-full h-[154px] bg-gradient-to-r from-[#CDE1FB] to-[#EDF5FF] flex items-center justify-center">
             <h1 className="text-[32px] font-ubuntu-sans font-extrabold leading-[1.2] text-[#1B1B3E] text-center drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
               PROJECTS
             </h1>
           </div>
 
-          <div className="w-[1163px] flex flex-col gap-[89px]">
-            {/* Contract Work Section */}
-            <div className="w-[548px]">
-              <div className="flex justify-center mb-[15px]">
-                <div className="px-[9px]">
-                  <h2 className="text-[32px] font-ubuntu-sans font-bold leading-[1.2] text-black">
-                    Contract Work
-                  </h2>
-                </div>
+          {/* Main content area - Change to flex-col for vertical stacking */}
+          <div className="w-full max-w-[1163px] flex flex-col items-start gap-[32px] px-4">
+            {/* Contract Work */}
+            <div className="w-[548px] flex flex-col gap-[15px]">
+              <div className="px-[9px] w-[183px]">
+                <h2
+                  className="text-[32px] font-ubuntu-sans font-bold leading-[1.2] text-black text-left whitespace-nowrap"
+                  tabIndex={0}
+                  aria-label="Contract Work"
+                >
+                  Contract Work
+                </h2>
               </div>
-              <div className="grid gap-4">
-                {contractProjects.map((project, index) => (
-                  <ProjectCard key={index} project={project} />
-                ))}
-              </div>
+              <ProjectCard
+                project={contractProjects[0]}
+                className="w-full h-[448px] bg-[#FDFDFD] rounded-[12px] shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+                imageContainerClassName="h-[320px]"
+              />
             </div>
 
-            {/* School Projects Section */}
-            <div className="w-full">
-              <div className="flex gap-[69px] items-end">
-                <div className="w-[548px] flex flex-col gap-[17px]">
-                  <div>
-                    <h2 className="text-[32px] font-ubuntu-sans font-bold leading-[1.2] text-black px-[9px]">
-                      School Projects
-                    </h2>
-                  </div>
-                  <div className="grid gap-4">
-                    <ProjectCard project={schoolProjects[0]} />
-                  </div>
-                </div>
-
-                <div className="flex gap-[32px]">
-                  <ProjectCard project={schoolProjects[1]} />
-                  <ProjectCard project={schoolProjects[2]} />
-                </div>
+            {/* School Projects */}
+            <div className="w-[928px] flex flex-col gap-[15px]">
+              <div className="px-[9px]">
+                <h2 className="text-[32px] font-ubuntu-sans font-bold leading-[1.2] text-black">
+                  School Projects
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 grid-rows-2 gap-[32px]">
+                {/* OAK: top left */}
+                <ProjectCard
+                  project={schoolProjects[0]}
+                  className="w-[448px]  col-start-1 row-start-1"
+                  imageContainerClassName="h-[320px]"
+                />
+                {/* SOLENIA: top right */}
+                <ProjectCard
+                  project={schoolProjects[1]}
+                  className="w-[448px]  col-start-2 row-start-1"
+                  imageContainerClassName="h-[320px]"
+                />
+                {/* STALLTID: bottom left */}
+                <ProjectCard
+                  project={schoolProjects[2]}
+                  className="w-[448px]  col-start-1 row-start-2"
+                  imageContainerClassName="h-[320px]"
+                />
+                {/* Empty cell for grid symmetry */}
+                {/* <div className="w-[448px] h-[448px] col-start-2 row-start-2"></div> */}
               </div>
             </div>
+          </div>
 
-            {/* View All Projects Button */}
-            <div className="text-center">
-              <Button
-                variant="outline"
-                href="/projects"
-                size="lg"
-                className="border-[3px] border-[#DA0B65] text-[#FF0364] hover:bg-[#FF0364] hover:text-white"
-              >
-                View All Projects
-              </Button>
-            </div>
+          {/* View All Projects Button - Centered below the columns */}
+          <div className="text-center mt-[89px]">
+            <Button
+              variant="outline"
+              href="/projects"
+              size="lg"
+              className="border-[3px] border-[#DA0B65] text-[#FF0364] hover:bg-[#FF0364] hover:text-white"
+            >
+              View All Projects
+            </Button>
           </div>
         </div>
       </EnhancedParallax>
