@@ -356,8 +356,6 @@ export default function Home() {
                   className="w-[448px]  col-start-1 row-start-2"
                   imageContainerClassName="h-[320px]"
                 />
-                {/* Empty cell for grid symmetry */}
-                {/* <div className="w-[448px] h-[448px] col-start-2 row-start-2"></div> */}
               </div>
             </div>
           </div>
