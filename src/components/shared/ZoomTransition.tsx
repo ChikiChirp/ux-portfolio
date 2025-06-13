@@ -141,11 +141,11 @@ export default function ZoomTransition({
             >
               <div className="flex items-center gap-4 text-white backdrop-blur-sm bg-white/10 px-6 py-3 rounded-full">
                 <motion.div
-                  className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
+                  className="w-6 h-6 border-2 border-black border-t-transparent rounded-full"
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 />
-                <span className="font-ubuntu text-sm font-medium">
+                <span className="font-ubuntu text-sm font-medium text-black">
                   Entering experience...
                 </span>
               </div>
