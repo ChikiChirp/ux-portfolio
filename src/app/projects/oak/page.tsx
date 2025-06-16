@@ -1,103 +1,141 @@
 import Image from "next/image";
-import Button from "@/components/shared/Button";
+import ParallaxSection from "@/components/shared/ParallaxSection";
+import SocialLinks from "@/components/shared/SocialLinks";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 
 export default function OakProject() {
+  const breadcrumbItems = [
+    { label: "PROJECTS", href: "/#projects-section" },
+    { label: "3D PLANNER - OAK EQUIPMENT" },
+  ];
+
   return (
-    <div className="min-h-screen bg-white pt-20">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-        {/* Project Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-[#E6F0FF] text-[#0B0B3A] rounded-full text-sm font-semibold mb-6">
-            Branding & Design
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-[#0B0B3A] mb-6">
-            OAK Creative Studio
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            A comprehensive brand identity and digital experience for a creative
-            studio specializing in sustainable design solutions.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="outline">View Live Site</Button>
-            <Button variant="secondary">Case Study</Button>
-          </div>
-        </div>
-
-        {/* Project Image */}
-        <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden mb-16 shadow-2xl">
-          <Image
-            src="https://picsum.photos/1200/500?random=10"
-            alt="OAK Creative Studio Project"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 1200px"
-          />
-        </div>
-
-        {/* Project Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
-          <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold text-[#0B0B3A] mb-6">
-              Project Overview
-            </h2>
-            <div className="prose prose-lg text-gray-600">
-              <p className="mb-4">
-                This project is currently being documented. The OAK Creative
-                Studio project involved creating a complete brand identity
-                system that reflects their commitment to sustainable and
-                innovative design practices.
-              </p>
-              <p className="mb-4">
-                The challenge was to create a visual identity that would appeal
-                to environmentally conscious clients while maintaining a
-                premium, professional appearance.
-              </p>
-              <p>
-                The solution included logo design, color palette development,
-                typography selection, and comprehensive brand guidelines for
-                both digital and print applications.
-              </p>
-            </div>
+    <div className="min-h-screen bg-[#DCEBFF] flex flex-col">
+      <main className="flex-grow flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="w-full text-left mb-10 mt-20">
+            <Breadcrumb items={breadcrumbItems} />
           </div>
 
-          <div>
-            <h3 className="text-xl font-bold text-[#0B0B3A] mb-4">
-              Project Details
-            </h3>
-            <div className="space-y-4">
+          <div className="w-full text-center mt-16 mb-16">
+            <h1 className="text-4xl font-extrabold font-ubuntu-sans text-[#0E0E43]">
+              3D PLANNER - OAK EQUIPMENT
+            </h1>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-7 mb-16">
+            <Image
+              src="/figma-assets/oak-main-image.png"
+              alt="OAK Project Main"
+              width={704}
+              height={292}
+              className="object-contain"
+              priority
+            />
+
+            <div className="flex flex-col justify-center gap-6">
               <div>
-                <h4 className="font-semibold text-[#0B0B3A] mb-1">Client</h4>
-                <p className="text-gray-600">OAK Creative Studio</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-[#0B0B3A] mb-1">Services</h4>
-                <p className="text-gray-600">
-                  Brand Identity, Logo Design, Guidelines
+                <p className="text-lg font-kanit font-medium text-black">
+                  Client
+                </p>
+                <p className="text-lg font-kanit font-normal text-black">
+                  Oak Equipment
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-[#0B0B3A] mb-1">Timeline</h4>
-                <p className="text-gray-600">6 weeks</p>
+                <p className="text-lg font-kanit font-medium text-black">
+                  Year
+                </p>
+                <p className="text-lg font-kanit font-normal text-black">
+                  2025 apr - 2025 may
+                </p>
               </div>
               <div>
-                <h4 className="font-semibold text-[#0B0B3A] mb-1">Year</h4>
-                <p className="text-gray-600">2024</p>
+                <p className="text-lg font-kanit font-medium text-black">
+                  Role
+                </p>
+                <p className="text-lg font-kanit font-normal text-black">
+                  UX & UI Design
+                </p>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Navigation */}
-        <div className="flex justify-between items-center pt-12 border-t border-gray-200">
-          <Button variant="outline" href="/projects/stalltid">
-            ← Previous Project
-          </Button>
-          <Button href="/">Back to Home</Button>
-          <Button variant="outline" href="/projects/virki">
-            Next Project →
-          </Button>
+          <div className="w-full max-w-4xl mx-auto flex flex-col gap-10 text-left mb-16">
+            <p className="text-lg font-ubuntu-sans text-black leading-relaxed">
+              <span className="font-bold">OAK Equipment</span> designs and sells
+              gym solutions for both businesses and private customers. Offers
+              high-quality fitness equipment at competitive prices, with a
+              strong focus on thoughtful design and functionality.
+            </p>
+            <div>
+              <h2 className="text-xl font-ubuntu-sans font-bold text-black mb-2">
+                Assignment
+              </h2>
+              <p className="text-lg font-ubuntu-sans text-black leading-relaxed">
+                As part of a multidisciplinary team consisting of two UX/UI
+                designers, frontend developers, and DevOps specialists, we
+                collaborated as an agency for OAK Equipment. Our collective
+                assignment was to develop a desktop-based 3D visualizer tool
+                that enables customers to plan and visualize their gym spaces in
+                a three-dimensional environment before making a potential
+                investment.
+              </p>
+              <p className="text-lg font-ubuntu-sans text-black leading-relaxed mt-4">
+                After the collaborative project, I was assigned to individually
+                enhance the tool based on user research and client feedback. My
+                individual work is showcased here on this page.
+              </p>
+            </div>
+          </div>
+
+          <div className="w-full max-w-5xl mx-auto my-16">
+            <div className="mb-8">
+              <Image
+                src="/figma-assets/oak-banner.png"
+                alt="OAK Banner"
+                width={1046}
+                height={294}
+              />
+            </div>
+            <div className="bg-[#DFEBD6] p-8">
+              <Image
+                src="/figma-assets/oak-design-system.png"
+                alt="OAK Design System"
+                width={1046}
+                height={550}
+              />
+            </div>
+          </div>
+
+          <div className="w-full max-w-5xl mx-auto my-16">
+            <h2 className="text-3xl font-bold font-ubuntu-sans text-black mb-4">
+              Results
+            </h2>
+            <div className="bg-[#2C2B2B] p-8">
+              <Image
+                src="/figma-assets/oak-results.png"
+                alt="OAK Results"
+                width={1026}
+                height={500}
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
+
+      <ParallaxSection
+        className="bg-gradient-to-b from-[#7A9BD5] via-[#9CBAEA] to-[#BDD9FF] py-6"
+        speed={0.1}
+        height="136px"
+      >
+        <div className="flex flex-col items-center gap-8">
+          <SocialLinks />
+          <p className="text-black font-ubuntu font-light text-[15px] leading-[1.149]">
+            Nikita Quazi 2025
+          </p>
+        </div>
+      </ParallaxSection>
     </div>
   );
 }
