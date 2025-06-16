@@ -383,9 +383,9 @@ export default function Home() {
 
       {/* Footer */}
       <ParallaxSection
-        className="bg-gradient-to-b from-[#7A9BD5] via-[#9CBAEA] to-[#BDD9FF] py-16"
+        className="bg-gradient-to-b from-[#7A9BD5] via-[#9CBAEA] to-[#BDD9FF] py-6"
         speed={0.1}
-        height="auto"
+        height="136px"
       >
         <div className="flex flex-col items-center gap-8">
           <SocialLinks />

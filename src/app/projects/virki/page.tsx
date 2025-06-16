@@ -1,20 +1,24 @@
 import Image from "next/image";
 import ParallaxSection from "@/components/shared/ParallaxSection";
 import SocialLinks from "@/components/shared/SocialLinks";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 //import Button from "@/components/shared/Button";
 
 export default function VirkiProject() {
+  const breadcrumbItems = [
+    { label: "PROJECTS", href: "/#projects-section" },
+    { label: "TIME REPORT - VIRKI" },
+  ];
+
   return (
     <div className="min-h-screen bg-[#DCEBFF] flex flex-col">
       <main className="flex-grow flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
         {/* Container for the whole page content */}
         <div className="w-full max-w-6xl mx-auto">
           {/* Breadcrumb */}
-          {/* <div className="w-full text-left mb-10">
-            <p className="text-base font-light font-ubuntu-sans text-black">
-              PROJECTS &gt; TIME REPORT - VIRKI
-            </p>
-          </div> */}
+          <div className="w-full text-left mb-10 mt-20">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
 
           {/* Main Title */}
           <div className="w-full text-center mt-16 mb-16">
@@ -121,9 +125,9 @@ export default function VirkiProject() {
 
       {/* Footer */}
       <ParallaxSection
-        className="bg-gradient-to-b from-[#7A9BD5] via-[#9CBAEA] to-[#BDD9FF] py-16"
+        className="bg-gradient-to-b from-[#7A9BD5] via-[#9CBAEA] to-[#BDD9FF] py-6"
         speed={0.1}
-        height="auto"
+        height="136px"
       >
         <div className="flex flex-col items-center gap-8">
           <SocialLinks />
