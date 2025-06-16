@@ -101,15 +101,14 @@ export default function WebshopSoleniaProject() {
               alt="Solenia Banner"
               width={1027}
               height={300}
-              className="rounded-xl shadow-lg"
+              className="shadow-lg"
             />
-            <div className="bg-[#E9E7E7] p-8 rounded-xl">
+            <div className="bg-[#E9E7E7] p-8">
               <Image
                 src="/figma-assets/solenia-visual.png"
                 alt="Solenia Visual"
                 width={1027}
                 height={550}
-                className="rounded-xl"
               />
             </div>
           </div>
@@ -118,13 +117,12 @@ export default function WebshopSoleniaProject() {
             <h2 className="text-3xl font-bold font-ubuntu-sans text-black mb-4">
               Result
             </h2>
-            <div className="bg-[#F4EFEA] p-8 rounded-xl">
+            <div className="bg-[#F4EFEA] p-8">
               <Image
                 src="/figma-assets/solenia-results.png"
                 alt="Solenia Results"
                 width={1027}
                 height={500}
-                className="rounded-xl"
               />
             </div>
           </div>
