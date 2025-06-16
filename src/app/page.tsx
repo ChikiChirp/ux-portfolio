@@ -322,7 +322,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-[21px] pt-0 pb-20">
           {/* PROJECTS Title - Changed to w-full for full-width banner */}
           <div className="w-full h-[220px] bg-gradient-to-r from-[#CDE1FB] to-[#EDF5FF] flex items-center mt-23">
-            <div className="w-full max-w-[1163px] mx-auto px-4">
+            <div className="w-full max-w-[1032px] mx-auto px-6 sm:px-8">
               <h1 className="text-[32px] font-ubuntu-sans font-extrabold leading-[1.2] text-[#1B1B3E]">
                 PROJECTS
               </h1>
@@ -330,7 +330,7 @@ export default function Home() {
           </div>
 
           {/* Main content area - Change to flex-col for vertical stacking */}
-          <div className="w-full max-w-[1163px] flex flex-col items-start gap-[32px] px-4">
+          <div className="w-full max-w-[1032px] flex flex-col items-start gap-[32px] px-6 sm:px-8">
             {/* Contract Work */}
             <div className="w-[548px] flex flex-col gap-[15px]">
               <div className="px-[9px] w-[183px]">
