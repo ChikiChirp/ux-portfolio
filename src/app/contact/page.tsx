@@ -8,16 +8,13 @@ export default function Contact() {
           {/* Left: CONTACT label and Card in a row */}
           <div className="flex flex-row items-start gap-6">
             {/* CONTACT label */}
-            <div
-              className="flex flex-col justify-start pt-2"
-              style={{ minWidth: 120 }}
-            >
-              <h1 className="text-[32px] font-extrabold font-['Ubuntu Sans'] text-black tracking-wide">
+            <div className="flex flex-col justify-start">
+              <h1 className="text-[32px] font-['Ubuntu_Sans',sans-serif] font-extrabold text-black leading-normal">
                 CONTACT
               </h1>
             </div>
             {/* Card */}
-            <div className="bg-[rgba(238,245,255,0.69)]  shadow-md w-[564px] h-[642px] flex flex-col  p-12 rounded-[3px]">
+            <div className="bg-[rgba(238,245,255,0.69)]  shadow-md w-[564px] h-[642px] flex flex-col  p-12 rounded-[3px] opacity-70">
               <div className="flex flex-col gap-[64px] flex-1 justify-between">
                 {/* Email Section */}
                 <div className="flex items-start gap-3">
