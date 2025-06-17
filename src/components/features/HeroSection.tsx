@@ -80,7 +80,7 @@ export default function HeroSection() {
           {/* Project Preview Section */}
           <div className="flex items-center gap-6">
             {/* Left - Project Preview Info */}
-            <div className="bg-[rgba(210,224,241,0.61)] p-[18px_10px_10px_12px]  w-[216px] h-[419px]">
+            <div className="bg-[rgba(210,224,241,0.61)] p-[18px_10px_10px_12px]  w-[216px] h-[438px]">
               <div className="space-y-[21px]">
                 <h2 className="font-ubuntu font-extrabold text-2xl leading-[1.2] text-black">
                   PROJECT PREVIEW
@@ -108,10 +108,10 @@ export default function HeroSection() {
                 imageAlt="3D Planner - OAK Equipment"
                 className="group"
               >
-                <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px]  w-[285px] h-[419px] transition-all duration-300">
+                <div className="bg-[rgba(183,181,177,0.55)] p-[15px_15px_21px]  w-[285px] h-[438px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
-                      <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
+                      <div className="w-full h-[296px] bg-gray-200 rounded overflow-hidden relative">
                         <Image
                           src="/figma-assets/oak-equipment-mockup.jpg"
                           alt="3D Planner - OAK Equipment"
@@ -136,34 +136,42 @@ export default function HeroSection() {
               {/* Solenia Project - Medium Card */}
               <ZoomTransition
                 href="/projects/webshop-solenia"
-                imageSrc="/figma-assets/solenia-base-image.jpg"
+                imageSrc="/figma-assets/solenia-base-image.svg"
                 imageAlt="Webshop - Solenia"
                 className="group"
               >
-                <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px]  w-[285px] h-[419px] transition-all duration-300">
+                <div className="bg-[rgba(218,216,208,0.89)] p-[15px_15px_21px]  w-[285px] h-[438px] transition-all duration-300">
                   <div className="flex flex-col gap-5 w-[255px]">
                     <div className="flex flex-col items-center gap-0 w-full">
-                      <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
-                        {/* Base image */}
+                      <div className="w-full h-[296px] bg-gray-200 rounded overflow-hidden relative group">
+                        {/* Base laptop image */}
                         <Image
-                          src="/figma-assets/solenia-base-image.jpg"
-                          alt="Solenia Base"
+                          src="/figma-assets/solenia-base-image.svg"
+                          alt="Solenia Laptop"
                           fill
-                          className="object-stretch transition-transform duration-300 group-hover:scale-110"
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
+                          priority
                         />
-                        {/* Overlay SVG */}
-                        <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                          <Image
-                            src="/figma-assets/solenia-overlay.svg"
-                            alt="Solenia Overlay"
-                            width={120}
-                            height={80}
-                            className="object-contain"
-                          />
-                        </div>
+                        {/* Screen content image (banner) */}
+                        {/* <Image
+                          src="/figma-assets/solenia-banner.png"
+                          alt="Solenia Banner"
+                          width={140}
+                          height={90}
+                          className="absolute transition-transform duration-300 group-hover:scale-110"
+                          style={{
+                            top: "32px",
+                            left: "38px",
+                            width: "140px",
+                            height: "90px",
+                            objectFit: "cover",
+                            borderRadius: "4px",
+                          }}
+                          priority
+                        /> */}
                       </div>
                       <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
-                        WEBSHOP - SOLENIA
+                        WEBSHOP – SOLENIA
                       </h3>
                     </div>
                     <div className="bg-[#050526] text-[#FDF7F7] px-[10px] py-[10px] rounded-[5px] w-fit relative overflow-hidden cursor-pointer button-shine">
@@ -183,12 +191,12 @@ export default function HeroSection() {
                 imageAlt="Booking System - Stalltid"
                 className="group"
               >
-                <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] w-[285px] h-[419px] transition-all duration-300">
-                  <div className="flex flex-col gap-5 w-[255px]">
+                <div className="bg-[rgba(233,232,226,0.65)] p-[15px_15px_21px] w-[285px] h-[438px] transition-all duration-300">
+                  <div className="flex flex-col gap-5 w-[255px] ">
                     <div className="flex flex-col items-center gap-0 w-full">
-                      <div className="w-full h-[200px] bg-gray-200 rounded overflow-hidden relative">
+                      <div className="w-full h-[296px] bg-gray-200 rounded overflow-hidden relative">
                         <Image
-                          src="/figma-assets/stalltid-project.jpg"
+                          src="/figma-assets/stalltid-project-image.png"
                           alt="Booking System - Stalltid"
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
