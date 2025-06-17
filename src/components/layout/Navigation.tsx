@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -46,10 +47,20 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="flex items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <div className="text-[#0E0E43] font-medium text-[20px] tracking-[0.2px] w-[35px] h-[16px] leading-normal font-ruwudu">
-              NQ.
-            </div>
+          <Link
+            href="/"
+            className="flex items-center flex-shrink-0 ml-[20px]"
+            aria-label="Home"
+            tabIndex={0}
+          >
+            <Image
+              src="/figma-assets/NQ2.svg"
+              width={35}
+              height={16}
+              alt="NQ. Logo"
+              className="select-none"
+              priority
+            />
           </Link>
 
           {/* Gap between logo and navigation */}

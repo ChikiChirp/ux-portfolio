@@ -24,7 +24,7 @@ export default function HeroSection() {
                 <h1 className="font-ubuntu font-semibold text-[32px] leading-[1.2] text-black">
                   Nikita Quazi
                   <br />
-                  <span className="text-[#FF1F8E]">UX/UI designer</span>
+                  <span className="text-[#DA0B65]">UX/UI designer</span>
                   <br />
                   with front-end skills
                 </h1>
@@ -89,7 +89,7 @@ export default function HeroSection() {
                   In{" "}
                   <a
                     href="#projects-section"
-                    className="text-[#FF1F8E] underline font-medium hover:opacity-80 transition-opacity"
+                    className="text-[#DA0B65] underline font-medium hover:opacity-80 transition-opacity"
                   >
                     PROJECTS
                   </a>{" "}
@@ -152,23 +152,6 @@ export default function HeroSection() {
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
                           priority
                         />
-                        {/* Screen content image (banner) */}
-                        {/* <Image
-                          src="/figma-assets/solenia-banner.png"
-                          alt="Solenia Banner"
-                          width={140}
-                          height={90}
-                          className="absolute transition-transform duration-300 group-hover:scale-110"
-                          style={{
-                            top: "32px",
-                            left: "38px",
-                            width: "140px",
-                            height: "90px",
-                            objectFit: "cover",
-                            borderRadius: "4px",
-                          }}
-                          priority
-                        /> */}
                       </div>
                       <h3 className="font-kanit text-[18px] leading-[1.49] text-black w-full mt-4">
                         WEBSHOP – SOLENIA

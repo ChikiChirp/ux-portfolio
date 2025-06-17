@@ -2,19 +2,19 @@ import Image from "next/image";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#CFE4FF] to-[#9CBAEA] flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#DCEBFF] to-[#9CBAEA] flex flex-col">
       <main className="flex-grow flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl w-full flex flex-row items-center justify-center gap-4">
           {/* Left: CONTACT label and Card in a row */}
           <div className="flex flex-row items-start gap-6">
             {/* CONTACT label */}
             <div className="flex flex-col justify-start">
-              <h1 className="text-[32px] font-['Ubuntu_Sans',sans-serif] font-extrabold text-black leading-normal">
+              <h1 className="text-[32px] font-ubuntu-sans font-extrabold text-[#000000] leading-normal">
                 CONTACT
               </h1>
             </div>
             {/* Card */}
-            <div className="bg-[rgba(238,245,255,0.69)]  shadow-md w-[564px] h-[642px] flex flex-col  p-12 rounded-[3px] opacity-70">
+            <div className="bg-[#e0edffb0] w-[564px] h-[642px] flex flex-col  p-12 rounded-[3px]">
               <div className="flex flex-col gap-[64px] flex-1 justify-between">
                 {/* Email Section */}
                 <div className="flex items-start gap-3">
@@ -26,17 +26,17 @@ export default function Contact() {
                       height={24}
                     />
                   </div>
-                  <div className="font-['Ubuntu Sans']">
+                  <div className="font-ubuntu-sans">
                     <h3 className="text-[32px] font-extrabold text-[#1A1A34]">
                       Email
                     </h3>
-                    <p className="text-[18px] font-normal text-black leading-[1.6]">
+                    <p className="text-[18px] font-normal text-[#000000] leading-[1.6]">
                       Are you interested in working with me or getting in touch?
                       Do email at
                     </p>
                     <a
                       href="mailto:nikita.quazi@gmail.com"
-                      className="text-[18px] text-[#FF0364] font-normal underline hover:opacity-80 transition-opacity"
+                      className="text-[20px] text-[#DA0B65] font-semibold underline hover:opacity-80 transition-opacity"
                     >
                       nikita.quazi@gmail.com
                     </a>
@@ -52,18 +52,18 @@ export default function Contact() {
                       height={24}
                     />
                   </div>
-                  <div className="font-['Ubuntu Sans']">
+                  <div className="font-ubuntu-sans">
                     <h3 className="text-[32px] font-extrabold text-[#1A1A34]">
                       LinkedIn
                     </h3>
-                    <p className="text-[18px] font-normal text-black leading-[1.6]">
+                    <p className="text-[18px] font-normal text-[#000000] leading-[1.6]">
                       Connect with me on Linkedin
                     </p>
                     <a
                       href="https://www.linkedin.com/in/nikita-quazi/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[18px] text-[#FF0364] font-normal underline hover:opacity-80 transition-opacity"
+                      className="text-[20px] text-[#DA0B65] font-semibold underline hover:opacity-80 transition-opacity"
                     >
                       View Profile
                     </a>
@@ -79,18 +79,18 @@ export default function Contact() {
                       height={24}
                     />
                   </div>
-                  <div className="font-['Ubuntu Sans']">
+                  <div className="font-ubuntu-sans">
                     <h3 className="text-[32px] font-extrabold text-[#1A1A34]">
                       Behance
                     </h3>
-                    <p className="text-[18px] font-normal text-black leading-[1.6]">
+                    <p className="text-[18px] font-normal text-[#000000] leading-[1.6]">
                       Check out my work on Behance
                     </p>
                     <a
                       href="https://www.behance.net/nikitaquazi"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[18px] text-[#FF0364] font-normal underline hover:opacity-80 transition-opacity"
+                      className="text-[20px] text-[#DA0B65] font-semibold underline hover:opacity-80 transition-opacity"
                     >
                       View Page
                     </a>

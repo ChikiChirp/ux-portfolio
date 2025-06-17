@@ -41,7 +41,7 @@ export default function ProjectCard({
             </span>
           </div>
 
-          <h3 className="text-xl font-bold text-[#0B0B3A] mb-2 group-hover:text-[#FF1F8E] transition-colors duration-200">
+          <h3 className="text-xl font-bold text-[#0B0B3A] mb-2 group-hover:text-[#DA0B65] transition-colors duration-200">
             {title}
           </h3>
 
@@ -50,7 +50,7 @@ export default function ProjectCard({
           )}
 
           {/* Hover Arrow */}
-          <div className="flex items-center mt-4 text-[#FF1F8E] opacity-0 group-hover:opacity-100 transition-all duration-200">
+          <div className="flex items-center mt-4 text-[#DA0B65] opacity-0 group-hover:opacity-100 transition-all duration-200">
             <span className="text-sm font-medium mr-2">View Project</span>
             <svg
               className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200"
