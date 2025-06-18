@@ -1,8 +1,18 @@
+"use client"; // Required for useIsMobile hook
+
 import ParallaxSection from "@/components/shared/ParallaxSection";
 import SocialLinks from "@/components/shared/SocialLinks";
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/useIsMobile"; // Corrected path
+import AboutSectionMobile from "@/components/features/AboutSectionMobile"; // Import the new mobile component
 
 export default function About() {
+  const isMobile = useIsMobile(); // useIsMobile typically doesn't need a query string if it's predefined
+
+  if (isMobile) {
+    return <AboutSectionMobile />;
+  }
+
   return (
     <div className="min-h-screen bg-[#DCEBFF] flex flex-col">
       <main className="flex-grow flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">

@@ -1,14 +1,35 @@
 "use client";
 
 import HeroSection from "@/components/features/HeroSection";
-import Image from "next/image";
 import Button from "@/components/shared/Button";
-import SocialLinks from "@/components/shared/SocialLinks";
-import ParallaxSection from "@/components/shared/ParallaxSection";
 import EnhancedParallax from "@/components/shared/EnhancedParallax";
+import ParallaxSection from "@/components/shared/ParallaxSection";
+import SocialLinks from "@/components/shared/SocialLinks";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { useScrollSections } from "@/hooks/useScrollSections";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+// Dynamically import HeroSection components with no SSR
+const HeroSectionMobile = dynamic(
+  () => import("@/components/features/HeroSectionMobile"),
+  { ssr: false }
+);
+
+const CodexSectionMobile = dynamic(
+  () => import("@/components/features/CodexSectionMobile"),
+  { ssr: false }
+);
 
 export default function Home() {
+  const isMobile = useIsMobile();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   // URL slug update configuration
   const scrollSections = [
     { id: "hero-section", slug: "" },
@@ -16,8 +37,8 @@ export default function Home() {
     { id: "projects-section", slug: "projects" },
   ];
 
-  // Initialize scroll sections hook
-  useScrollSections(scrollSections);
+  // Initialize scroll sections hook only on desktop
+  useScrollSections(!isMobile ? scrollSections : []);
 
   const skills = {
     ux: [
@@ -190,9 +211,24 @@ export default function Home() {
     </div>
   );
 
+  if (!isClient) {
+    // Render nothing on the server and initial client render
+    return null;
+  }
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col w-full bg-gradient-to-b from-[#BCD8FF] via-[#DFE7F3] to-[#FAE4DD]">
+        <HeroSectionMobile />
+        <CodexSectionMobile />
+      </div>
+    );
+  }
+
+  // If not mobile, return the full desktop layout:
   return (
     <div className="w-full">
-      {/* Hero Section */}
+      {/* Hero Section (Desktop) */}
       <div id="hero-section">
         <HeroSection />
       </div>

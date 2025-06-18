@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useState } from "react"; // Added useState
 
 export default function Navigation() {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Added state for mobile menu
 
   const handleAnchorClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -96,7 +98,8 @@ export default function Navigation() {
               type="button"
               className="inline-flex items-center justify-center p-2 rounded-md text-[#0E0E43] hover:text-[#FF0364] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#FF0364]"
               aria-controls="mobile-menu"
-              aria-expanded="false"
+              aria-expanded={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} // Added onClick handler
             >
               <span className="sr-only">Open main menu</span>
               <svg
@@ -118,24 +121,29 @@ export default function Navigation() {
       </div>
 
       {/* Mobile menu */}
-      <div className="md:hidden" id="mobile-menu">
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/90 backdrop-blur-sm border-t border-gray-100">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              onClick={item.onClick}
-              className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
-                pathname === item.href
-                  ? "text-[#0E0E43] bg-gray-50"
-                  : "text-[#000000] hover:text-[#0E0E43] hover:bg-gray-50"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
+      {isMobileMenuOpen && (
+        <div
+          className="md:hidden absolute top-full left-0 right-0 shadow-lg"
+          id="mobile-menu"
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/90 backdrop-blur-sm border-t border-gray-100">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={item.onClick}
+                className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                  pathname === item.href
+                    ? "text-[#0E0E43] bg-gray-50"
+                    : "text-[#000000] hover:text-[#0E0E43] hover:bg-gray-50"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
