@@ -84,7 +84,7 @@ export default function About() {
                   href="https://www.behance.net/nikitaquazi1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#FF1F8E] underline font-medium hover:opacity-80 transition-opacity"
+                  className="text-[#DA0B65] underline font-medium hover:opacity-80 transition-opacity"
                 >
                   Behance.
                 </a>
