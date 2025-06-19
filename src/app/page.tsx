@@ -28,6 +28,53 @@ export default function Home() {
 
   useEffect(() => {
     setIsClient(true);
+    
+    // Handle URL query parameters for scrolling to specific sections
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const section = urlParams.get('section');
+      const view = urlParams.get('view');
+      
+      // If we have section parameters, scroll to the appropriate section
+      if (section) {
+        // Determine the proper ID based on section and view
+        const isMobileView = view === 'mobile';
+        let targetId = '';
+        
+        // Set appropriate target ID based on section and device view
+        if (section === 'projects') {
+          targetId = isMobileView ? 'projects-section-mobile' : 'projects-section';
+        } else if (section === 'codex') {
+          targetId = isMobileView ? 'codex-section-mobile' : 'codex-section';
+        }
+        
+        // If we have a valid target, scroll to it after a short delay to ensure elements are rendered
+        if (targetId) {
+          // Clear the URL parameters without refreshing the page
+          const cleanUrl = window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+          
+          setTimeout(() => {
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              // Smooth scroll to element
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+              
+              // Apply appropriate offset based on the target
+              setTimeout(() => {
+                if (section === 'projects') {
+                  // For Projects section - reveal the Portfolio heading
+                  window.scrollBy({ top: -100, behavior: 'smooth' });
+                } else if (section === 'codex') {
+                  // For Codex section - reveal both heading and icons
+                  window.scrollBy({ top: -40, behavior: 'smooth' });
+                }
+              }, 500);
+            }
+          }, 500); // Longer delay to ensure dynamic components are loaded
+        }
+      }
+    }
   }, []);
 
   // URL slug update configuration

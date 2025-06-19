@@ -1,16 +1,67 @@
 "use client";
 
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useEffect, useState } from "react";
 
 export default function Navigation() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+
+  // Effect to handle scrolling to target when navigating from another page
+  useEffect(() => {
+    // Only run on home page
+    if (pathname === "/") {
+      // Check if there's a stored scroll target
+      const storedTarget = sessionStorage.getItem('scrollTarget');
+      
+      if (storedTarget) {
+        // Get whether user was in mobile view when they clicked
+        const wasMobile = sessionStorage.getItem('wasMobileView') === 'true';
+        
+        // Clear stored values to prevent scrolling on subsequent renders
+        sessionStorage.removeItem('scrollTarget');
+        sessionStorage.removeItem('wasMobileView');
+        
+        // Determine the correct target element based on current mobile state
+        const correctTarget = wasMobile && isMobile ? 
+          // If they were on mobile and still are, use mobile target
+          storedTarget : 
+          // If they were on desktop or switched views, determine appropriate target
+          storedTarget.includes('-mobile') ? 
+            // Convert mobile ID to desktop if needed
+            storedTarget.replace('-mobile', '') : 
+            // Convert desktop ID to mobile if needed
+            wasMobile ? `${storedTarget}-mobile` : storedTarget;
+        
+        // Small delay to ensure the page is fully rendered
+        setTimeout(() => {
+          const targetElement = document.getElementById(correctTarget);
+          
+          if (targetElement) {
+            // Smooth scroll to element
+            targetElement.scrollIntoView({ behavior: "smooth" });
+            
+            // Apply appropriate offset based on the target and device
+            setTimeout(() => {
+              // Apply different offsets for Projects and Codex sections
+              if (correctTarget.includes('projects')) {
+                // For Projects section - reveal the Portfolio heading
+                window.scrollBy({ top: isMobile ? -100 : -100, behavior: "smooth" });
+              } else if (correctTarget.includes('codex')) {
+                // For Codex section - scroll less to show both heading and icons
+                window.scrollBy({ top: isMobile ? -40 : -40, behavior: "smooth" });
+              }
+            }, 500);
+          }
+        }, 300);
+      }
+    }
+  }, [pathname, isMobile]); // Re-run when pathname or mobile state changes
 
   // Animation variants for hamburger menu lines
   const line1Variants = {
@@ -39,34 +90,49 @@ export default function Navigation() {
     targetId: string
   ) => {
     e.preventDefault();
-
-    // For mobile menu, use a small delay to allow the menu to close first
-    // This prevents the animation from being interrupted
-    setTimeout(() => {
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        // Smooth scroll with offset for mobile view
-        targetElement.scrollIntoView({ behavior: "smooth" });
-
-        // Add additional scroll offset for mobile to properly reveal the section header
-        if (isMobile) {
-          // Wait a bit for the initial scroll to complete, then apply offset
+    
+    // Check if we're already on the home page or need to navigate there first
+    const isOnHomePage = pathname === "/";
+    
+    // Close mobile menu if open
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+    
+    // Add a small delay for the mobile menu to close
+    const scrollDelay = isMobileMenuOpen ? 300 : 0;
+    
+    if (isOnHomePage) {
+      // If already on home page, scroll immediately with delay
+      setTimeout(() => {
+        // Directly get the element and scroll to it
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          
+          // Apply appropriate offset after scrolling
           setTimeout(() => {
-            // Different offsets for different sections
-            if (targetId === "projects-section-mobile") {
-              // For Projects section - reveal the Portfolio heading
+            // Simplified: just use consistent offset values based on section type
+            if (targetId.includes("projects")) {
               window.scrollBy({ top: -100, behavior: "smooth" });
-            } else if (targetId === "codex-section-mobile") {
-              // For Codex section - scroll less to show both heading and icons
+            } else if (targetId.includes("codex")) {
               window.scrollBy({ top: -40, behavior: "smooth" });
             }
           }, 500);
         }
-      } else {
-        window.location.href = `/#${targetId}`;
-      }
-    }, 300);
+      }, scrollDelay);
+    } else {
+      // When navigating from another page, use a direct URL with hash
+      // This approach uses the browser's native scroll-to-anchor behavior
+      // with our custom section identifier
+      
+      // Encode the proper section and view type in the URL hash
+      const sectionType = targetId.includes("projects") ? "projects" : "codex";
+      const viewType = isMobile ? "mobile" : "desktop";
+      
+      // Redirect with specific hash parameters that will be handled on page load
+      window.location.href = `/?section=${sectionType}&view=${viewType}`;
+    }
   };
 
   // Adjust section IDs based on mobile/desktop view
