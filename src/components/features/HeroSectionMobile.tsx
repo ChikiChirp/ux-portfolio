@@ -31,16 +31,20 @@ interface ProjectCardMobileProps {
   tag: string;
 }
 
-const ProjectCardMobile: React.FC<ProjectCardMobileProps> = ({ href, imageSrc, imageAlt, title, tag }) => {
+const ProjectCardMobile: React.FC<ProjectCardMobileProps> = ({
+  href,
+  imageSrc,
+  imageAlt,
+  title,
+  tag,
+}) => {
   return (
-    <Link href={href} className="block w-[270px] bg-white p-4 rounded-xl shadow-md transition-transform hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-[#DA0B65] focus:ring-opacity-50">
+    <Link
+      href={href}
+      className="block w-[270px] bg-white p-4 rounded-xl shadow-md transition-transform hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-[#DA0B65] focus:ring-opacity-50"
+    >
       <div className="w-full h-[175px] relative overflow-hidden rounded-lg bg-gray-200">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          className="object-cover"
-        />
+        <Image src={imageSrc} alt={imageAlt} fill className="object-cover" />
       </div>
       <h3 className="font-['Kanit',_sans-serif] text-base text-[#030303] uppercase mt-4 font-semibold tracking-tight">
         {title}
@@ -84,30 +88,32 @@ export default function HeroSectionMobile() {
           <Image
             src="/figma-assets/Frame 5018.png"
             alt="Profile display with Creativity and Empathy labels"
-            width={200} 
-            height={158} /* Adjusted height to maintain aspect ratio of Figma image (approx 200x158) */
+            width={200}
+            height={
+              158
+            } /* Adjusted height to maintain aspect ratio of Figma image (approx 200x158) */
             className="object-contain" /* Use object-contain to ensure full image is visible */
             priority
           />
         </div>
 
         {/* Social Buttons under Image */}
-        <div className="flex gap-3 justify-center mb-4">
+        <div className="flex gap-15 justify-center mb-4">
           {socialLinks.map((social) => (
             <a
               key={social.name}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-[#F8B195] flex items-center justify-center hover:bg-[#F8B195]/10 transition-colors"
+              className="w-15 h-15 rounded-full border-2 border-[#DA0B65] flex items-center justify-center hover:bg-[#DA0B65]/10 transition-colors"
               aria-label={social.name}
             >
               <Image
                 src={social.icon}
                 alt={social.name}
-                width={18}
-                height={18}
-                className="w-4 h-4 object-contain"
+                width={20}
+                height={20}
+                className="w-6 h-6 object-contain"
               />
             </a>
           ))}
@@ -120,7 +126,7 @@ export default function HeroSectionMobile() {
           </h2>
           <div className="flex flex-col items-center gap-10 pb-10">
             <ProjectCardMobile
-              href="/projects/virki" 
+              href="/projects/virki"
               imageSrc="/figma-assets/virki-project.png"
               imageAlt="TIME REPORT – VIRKI AB"
               title="TIME REPORT – VIRKI AB"
@@ -151,7 +157,6 @@ export default function HeroSectionMobile() {
         </div>
 
         {/* Codex Section */}
-
       </motion.div>
     </section>
   );
