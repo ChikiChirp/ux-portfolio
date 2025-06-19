@@ -6,7 +6,7 @@ import MobileFooterSocialLinks from "../shared/MobileFooterSocialLinks";
 
 export default function CodexSectionMobile() {
   return (
-    <div className="min-h-screen flex flex-col items-center bg-[#DCEBFF]">
+    <div id="codex-section-mobile" className="min-h-screen flex flex-col items-center bg-[#DCEBFF]">
       {/* Main content section */}
       <section className="w-full max-w-md px-[30px] py-10 flex flex-col items-center gap-y-7">
         <h2 className="text-[#030303] text-lg font-ubuntu-sans-condensed-bold font-bold uppercase tracking-wider mb-8 text-center">

@@ -42,22 +42,21 @@ body {
   overflow-x: hidden;
 }
 
-/* Ensure navigation is truly transparent */
-nav {
-  background: none !important;
-  background-color: transparent !important;
-  background-image: none !important;
+/* Navigation styling */
+nav:not(.mobile-nav) {
+  background: none;
+  background-color: transparent;
+  background-image: none;
 }
 
-/* Force remove any dark mode or browser defaults on nav */
-nav,
-nav * {
-  background: transparent !important;
+/* Desktop navigation transparency only */
+nav:not(.mobile-nav) * {
+  background: transparent;
 }
 
-/* Override any possible Tailwind or browser nav styling */
-.fixed {
-  background: transparent !important;
+/* Override fixed positioning styles only for non-mobile */
+.fixed:not(.mobile-fixed) {
+  background: transparent;
 }
 
 /* Custom smooth parallax animations */

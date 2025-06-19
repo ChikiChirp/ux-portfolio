@@ -123,7 +123,7 @@ export default function HeroSectionMobile() {
         </div>
 
         {/* Portfolio Section */}
-        <div className="mt-16 px-1 w-full">
+        <div id="projects-section-mobile" className="mt-16 px-1 w-full">
           <h2 className="font-['Ubuntu_Sans_Condensed_Bold',_sans-serif] text-xl leading-none text-[#030303] uppercase text-left mb-8 font-bold pl-2">
             Portfolio
           </h2>
