@@ -1,6 +1,27 @@
+"use client";
+
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+
+// Dynamically import mobile component with no SSR
+const ContactSectionMobile = dynamic(
+  () => import("@/components/features/ContactSectionMobile"),
+  { ssr: false }
+);
 
 export default function Contact() {
+  const isMobile = useIsMobile();
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
+  if (isClient && isMobile) {
+    return <ContactSectionMobile />;
+  }
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#DCEBFF] to-[#9CBAEA] flex flex-col">
       <main className="flex-grow flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
