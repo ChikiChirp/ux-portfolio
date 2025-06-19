@@ -43,7 +43,7 @@ export default function CodexSectionMobile() {
         </div>
 
         {/* Descriptive Paragraph */}
-        <span className="h-[103px] text-[#000000] text-[15px] font-ubuntu-sans font-normal leading-[1.5] [font-variant:small-caps] text-center mb-8 flex items-center justify-center">
+        <span className="h-[103px] text-[#000000] text-[15px] font-ubuntu-sans font-normal leading-[1.5] [font-variant:small-caps] text-center flex items-center justify-center">
           I design digital journeys, aiming to connect user needs and product
           goals, with UX as my foundation, science as my structure and
           illustration as my creative outlet.
