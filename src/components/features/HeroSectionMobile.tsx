@@ -51,8 +51,10 @@ const ProjectCardMobile: React.FC<ProjectCardMobileProps> = ({
       <h3 className="font-['Kanit',_sans-serif] text-base text-[#030303] uppercase mt-6 font-semibold tracking-tight">
         {title}
       </h3>
-      <div className="bg-[#050526] text-[#fdf7f7] px-3 py-1.5 text-sm font-['Kanit',_sans-serif] mt-4 inline-block font-normal leading-tight">
-        {tag}
+      <div className="bg-[#050526] text-[#fdf7f7] rounded-[5px] px-[10px] py-[10px] mt-4 inline-block">
+        <p className="font-['Kanit',_sans-serif] text-[15px] whitespace-pre leading-normal">
+          {tag}
+        </p>
       </div>
     </Link>
   );
