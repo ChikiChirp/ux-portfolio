@@ -28,46 +28,48 @@ export default function Home() {
 
   useEffect(() => {
     setIsClient(true);
-    
+
     // Handle URL query parameters for scrolling to specific sections
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
-      const section = urlParams.get('section');
-      const view = urlParams.get('view');
-      
+      const section = urlParams.get("section");
+      const view = urlParams.get("view");
+
       // If we have section parameters, scroll to the appropriate section
       if (section) {
         // Determine the proper ID based on section and view
-        const isMobileView = view === 'mobile';
-        let targetId = '';
-        
+        const isMobileView = view === "mobile";
+        let targetId = "";
+
         // Set appropriate target ID based on section and device view
-        if (section === 'projects') {
-          targetId = isMobileView ? 'projects-section-mobile' : 'projects-section';
-        } else if (section === 'codex') {
-          targetId = isMobileView ? 'codex-section-mobile' : 'codex-section';
+        if (section === "projects") {
+          targetId = isMobileView
+            ? "projects-section-mobile"
+            : "projects-section";
+        } else if (section === "codex") {
+          targetId = isMobileView ? "codex-section-mobile" : "codex-section";
         }
-        
+
         // If we have a valid target, scroll to it after a short delay to ensure elements are rendered
         if (targetId) {
           // Clear the URL parameters without refreshing the page
           const cleanUrl = window.location.pathname;
           window.history.replaceState({}, document.title, cleanUrl);
-          
+
           setTimeout(() => {
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
               // Smooth scroll to element
-              targetElement.scrollIntoView({ behavior: 'smooth' });
-              
+              targetElement.scrollIntoView({ behavior: "smooth" });
+
               // Apply appropriate offset based on the target
               setTimeout(() => {
-                if (section === 'projects') {
+                if (section === "projects") {
                   // For Projects section - reveal the Portfolio heading
-                  window.scrollBy({ top: -100, behavior: 'smooth' });
-                } else if (section === 'codex') {
+                  window.scrollBy({ top: -100, behavior: "smooth" });
+                } else if (section === "codex") {
                   // For Codex section - reveal both heading and icons
-                  window.scrollBy({ top: -40, behavior: 'smooth' });
+                  window.scrollBy({ top: -40, behavior: "smooth" });
                 }
               }, 500);
             }
@@ -396,7 +398,7 @@ export default function Home() {
 
       {/* Projects Section - REBUILT TO MATCH FIGMA */}
       {/* Add a spacer div for better section separation */}
-      <div className="w-full h-[20vh]"></div>
+      <div className="w-full"></div>
       <EnhancedParallax
         id="projects-section"
         className="bg-gradient-to-b from-[#CDE1FB] to-[#EDF5FF]"
@@ -404,7 +406,7 @@ export default function Home() {
         floatingElements={true}
         intensity="light"
       >
-        <div className="flex flex-col items-center gap-[21px] pt-[15vh] pb-[15vh]">
+        <div className="flex flex-col items-center gap-[21px] pt-0 pb-[20]">
           {/* PROJECTS Title - Changed to w-full for full-width banner */}
           <div className="w-full min-h-[15vh] md:min-h-[25vh] bg-gradient-to-r from-[#CDE1FB] to-[#EDF5FF] flex items-center mt-23">
             <div className="w-full max-w-[1032px] mx-auto px-6 sm:px-8">
