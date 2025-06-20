@@ -25,6 +25,41 @@ export default function Navigation() {
     mobileOffset?: number;
   }
 
+  // Calculate responsive offsets based on viewport height
+  const getResponsiveOffset = (basePercentage: number) => {
+    // Client-side only
+    if (typeof window !== 'undefined') {
+      // Calculate offset as a percentage of viewport height
+      const viewportHeight = window.innerHeight;
+      return Math.round(viewportHeight * (basePercentage / 100)) * -1;
+    }
+    // Default fallback for SSR
+    return -100;
+  };
+
+  // Calculate responsive offsets on component mount and window resize
+  const [desktopOffset, setDesktopOffset] = useState(-100);
+  const [mobileOffset, setMobileOffset] = useState(-80);
+
+  // Update offsets on mount and resize
+  useEffect(() => {
+    const updateOffsets = () => {
+      // For desktop: 10% of viewport height
+      setDesktopOffset(getResponsiveOffset(10));
+      // For mobile: 8% of viewport height
+      setMobileOffset(getResponsiveOffset(8));
+    };
+
+    // Initial calculation
+    updateOffsets();
+
+    // Add resize listener
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', updateOffsets);
+      return () => window.removeEventListener('resize', updateOffsets);
+    }
+  }, []);
+
   // Use useMemo to prevent navItems from being recreated on every render
   const navItems = useMemo<NavItem[]>(
     () => [
@@ -32,21 +67,21 @@ export default function Navigation() {
       {
         name: "CODEX",
         href: "codex-section",
-        offset: -100,
+        offset: desktopOffset,
         mobileHref: "codex-section-mobile",
-        mobileOffset: -80,
+        mobileOffset: mobileOffset,
       },
       {
         name: "PROJECTS",
         href: "projects-section",
-        offset: -100,
+        offset: desktopOffset,
         mobileHref: "projects-section-mobile",
-        mobileOffset: -80,
+        mobileOffset: mobileOffset,
       },
       { name: "ABOUT", href: "/about" },
       { name: "CONTACT", href: "/contact" },
     ],
-    []
+    [desktopOffset, mobileOffset]
   );
 
   // Effect to handle scrolling to target when navigating from another page
