@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link as ScrollLink } from "react-scroll";
 
 export default function Navigation() {
@@ -13,19 +13,57 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
+  // Use Record type for proper TypeScript typing of hash matches
+  const [isHashMatch, setIsHashMatch] = useState<Record<string, boolean>>({});
+
+  // Adjust section IDs based on mobile/desktop view
+  interface NavItem {
+    name: string;
+    href: string;
+    offset?: number;
+    mobileHref?: string;
+    mobileOffset?: number;
+  }
+
+  // Use useMemo to prevent navItems from being recreated on every render
+  const navItems = useMemo<NavItem[]>(
+    () => [
+      { name: "HOME", href: "/" },
+      {
+        name: "CODEX",
+        href: "codex-section",
+        offset: -100,
+        mobileHref: "codex-section-mobile",
+        mobileOffset: -80,
+      },
+      {
+        name: "PROJECTS",
+        href: "projects-section",
+        offset: -100,
+        mobileHref: "projects-section-mobile",
+        mobileOffset: -80,
+      },
+      { name: "ABOUT", href: "/about" },
+      { name: "CONTACT", href: "/contact" },
+    ],
+    []
+  );
 
   // Effect to handle scrolling to target when navigating from another page
   useEffect(() => {
     // Only run on home page
     if (pathname === "/") {
       // Check if we're in the browser and there's a stored scroll target
-      const storedTarget = typeof window !== 'undefined' ? sessionStorage.getItem("scrollTarget") : null;
+      const storedTarget =
+        typeof window !== "undefined"
+          ? sessionStorage.getItem("scrollTarget")
+          : null;
 
       if (storedTarget) {
         // Clear stored values to prevent scrolling on subsequent renders
-        if (typeof window !== 'undefined') {
-          sessionStorage.removeItem('scrollTarget');
-          sessionStorage.removeItem('wasMobileView');
+        if (typeof window !== "undefined") {
+          sessionStorage.removeItem("scrollTarget");
+          sessionStorage.removeItem("wasMobileView");
         }
 
         // Determine the correct target element based on current mobile state
@@ -39,7 +77,8 @@ export default function Navigation() {
             correctTarget = "codex-section-mobile";
           } else if (
             !storedTarget.includes("-mobile") &&
-            (storedTarget.includes("projects") || storedTarget.includes("codex"))
+            (storedTarget.includes("projects") ||
+              storedTarget.includes("codex"))
           ) {
             // For any other projects or codex related IDs not explicitly handled
             correctTarget = `${storedTarget}-mobile`;
@@ -53,7 +92,10 @@ export default function Navigation() {
 
         // Small delay to ensure the page is fully rendered
         setTimeout(() => {
-          const targetElement = typeof document !== 'undefined' ? document.getElementById(correctTarget) : null;
+          const targetElement =
+            typeof document !== "undefined"
+              ? document.getElementById(correctTarget)
+              : null;
 
           if (targetElement) {
             // Smooth scroll to element
@@ -64,7 +106,7 @@ export default function Navigation() {
               // Apply different offsets for Projects and Codex sections
               if (correctTarget.includes("projects")) {
                 // For Projects section - reveal the Portfolio heading
-                if (typeof window !== 'undefined') {
+                if (typeof window !== "undefined") {
                   window.scrollBy({
                     top: isMobile ? -100 : -100,
                     behavior: "smooth",
@@ -72,7 +114,7 @@ export default function Navigation() {
                 }
               } else if (correctTarget.includes("codex")) {
                 // For Codex section - scroll less to show both heading and icons
-                if (typeof window !== 'undefined') {
+                if (typeof window !== "undefined") {
                   window.scrollBy({
                     top: isMobile ? -40 : -40,
                     behavior: "smooth",
@@ -116,6 +158,20 @@ export default function Navigation() {
     // Let the default navigation handle the actual navigation
   };
 
+  // Update hash match state on client-side only
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Create a map of href to boolean match status
+      const hashMatches: Record<string, boolean> = {};
+      navItems.forEach((item: NavItem) => {
+        if (!item.href.startsWith("/")) {
+          hashMatches[item.href] = window.location.hash.includes(item.href);
+        }
+      });
+      setIsHashMatch(hashMatches);
+    }
+  }, [pathname, navItems]); // Re-check when pathname or navItems change
+
   // Handle anchor link clicks for navigation
   const handleAnchorNavigation = (to: string) => {
     // Check if we need special handling for mobile section IDs
@@ -131,7 +187,7 @@ export default function Navigation() {
 
     if (pathname !== "/") {
       // If not on home page, store target and navigate to home with hash
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         sessionStorage.setItem("scrollTarget", targetId);
         sessionStorage.setItem("wasMobileView", isMobile.toString());
       }
@@ -142,34 +198,7 @@ export default function Navigation() {
     // If on home page, ScrollLink will handle the scrolling
   };
 
-  // Adjust section IDs based on mobile/desktop view
-  interface NavItem {
-    name: string;
-    href: string;
-    offset?: number;
-    mobileHref?: string;
-    mobileOffset?: number;
-  }
-
-  const navItems: NavItem[] = [
-    { name: "HOME", href: "/" },
-    {
-      name: "CODEX",
-      href: "codex-section",
-      offset: -100,
-      mobileHref: "codex-section-mobile",
-      mobileOffset: -80,
-    },
-    {
-      name: "PROJECTS",
-      href: "projects-section",
-      offset: -100,
-      mobileHref: "projects-section-mobile",
-      mobileOffset: -80,
-    },
-    { name: "ABOUT", href: "/about" },
-    { name: "CONTACT", href: "/contact" },
-  ];
+  // NavItem interface and navItems array are now defined at the top of the component
 
   return (
     <nav
@@ -201,7 +230,7 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center gap-[68px]">
-              {navItems.map((item) =>
+              {navItems.map((item: NavItem) =>
                 item.href.startsWith("/") ? (
                   // Regular Next.js Link for non-anchor links
                   <Link
@@ -236,8 +265,7 @@ export default function Navigation() {
                         ? "text-[24px] leading-[1.495]"
                         : "text-[18px] leading-[1.495]"
                     } ${
-                      pathname === "/" &&
-                      window.location.hash.includes(item.href)
+                      pathname === "/" && isHashMatch[item.href]
                         ? "text-[#0E0E43] font-medium"
                         : "text-[#000000] hover:text-[#0E0E43]"
                     }`}
@@ -321,7 +349,7 @@ export default function Navigation() {
               className="w-full"
             >
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-100">
-                {navItems.map((item) =>
+                {navItems.map((item: NavItem) =>
                   item.href.startsWith("/") ? (
                     // Regular Next.js Link for non-anchor links
                     <Link
@@ -348,8 +376,7 @@ export default function Navigation() {
                       }
                       duration={500}
                       className={`block px-3 py-2 text-base font-medium transition-colors duration-200 cursor-pointer ${
-                        pathname === "/" &&
-                        typeof window !== 'undefined' && window.location.hash.includes(item.href)
+                        pathname === "/" && isHashMatch[item.href]
                           ? "text-[#0E0E43] bg-gray-50"
                           : "text-[#000000] hover:text-[#0E0E43] hover:bg-gray-50"
                       }`}
