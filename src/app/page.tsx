@@ -395,14 +395,16 @@ export default function Home() {
       </EnhancedParallax>
 
       {/* Projects Section - REBUILT TO MATCH FIGMA */}
+      {/* Add a spacer div for better section separation */}
+      <div className="w-full h-[20vh]"></div>
       <EnhancedParallax
         id="projects-section"
         className="bg-gradient-to-b from-[#CDE1FB] to-[#EDF5FF]"
-        height="auto"
+        height="min-h-screen" /* Ensure minimum full viewport height */
         floatingElements={true}
         intensity="light"
       >
-        <div className="flex flex-col items-center gap-[21px] pt-0 pb-20">
+        <div className="flex flex-col items-center gap-[21px] pt-[15vh] pb-[15vh]">
           {/* PROJECTS Title - Changed to w-full for full-width banner */}
           <div className="w-full min-h-[15vh] md:min-h-[25vh] bg-gradient-to-r from-[#CDE1FB] to-[#EDF5FF] flex items-center mt-23">
             <div className="w-full max-w-[1032px] mx-auto px-6 sm:px-8">
