@@ -3,19 +3,12 @@
 import Image from "next/image";
 import Button from "../shared/Button";
 import SocialLinks from "../shared/SocialLinks";
-import AdvancedParallaxSection from "../shared/AdvancedParallaxSection";
 import ZoomTransition from "../shared/ZoomTransition";
 import { Link as ScrollLink } from 'react-scroll';
 
 export default function HeroSection() {
   return (
-    <AdvancedParallaxSection
-      className="bg-gradient-to-b from-[#9ACBFF] to-[#FADDDD]"
-      speed={0.6}
-      scaleRange={[1, 1.3]}
-      opacityRange={[1, 0.8]}
-      height="100vh"
-    >
+    <section className="bg-gradient-to-b from-[#9ACBFF] to-[#FADDDD] min-h-screen">
       <section className="min-h-screen relative overflow-hidden pt-30">
         <div className="max-w-[1140px] mx-auto px-6 sm:px-8 h-full flex flex-col items-center justify-center gap-[64px]">
           <div className="flex items-end gap-[63px]">
@@ -229,6 +222,6 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
-    </AdvancedParallaxSection>
+    </section>
   );
 }
