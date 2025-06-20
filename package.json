@@ -18,7 +18,8 @@
     "next": "15.3.3",
     "path": "^0.12.7",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-scroll": "^1.9.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -26,8 +27,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-scroll": "^1.8.10",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "puppeteer": "^24.10.2",
     "sharp": "^0.34.2",
     "svg2ico": "^1.0.35",
     "tailwindcss": "^4",

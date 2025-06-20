@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Geist,
   Geist_Mono,
@@ -45,10 +45,33 @@ const kanit = Kanit({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
+const defaultTitle = "Nikita Quazi - UX/UI Designer with Front-end Skills";
+const defaultDescription = "UX/UI designer portfolio combining analytical thinking with creative expression to create accessible and engaging digital experiences.";
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+};
+
 export const metadata: Metadata = {
-  title: "Nikita Quazi - UX/UI Designer with Front-end Skills",
-  description:
-    "UX/UI designer portfolio combining analytical thinking with creative expression to create accessible and engaging digital experiences.",
+  title: defaultTitle,
+  description: defaultDescription,
+  metadataBase: new URL('https://nikitaquazi.netlify.app'),
+  openGraph: {
+    title: defaultTitle,
+    description: defaultDescription,
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://nikitaquazi.netlify.app',
+    siteName: defaultTitle,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: defaultTitle,
+    description: defaultDescription,
+  },
 };
 
 export default function RootLayout({

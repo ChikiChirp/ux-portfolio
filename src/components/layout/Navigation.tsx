@@ -4,57 +4,80 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Link as ScrollLink } from "react-scroll";
 
 export default function Navigation() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const router = useRouter();
 
   // Effect to handle scrolling to target when navigating from another page
   useEffect(() => {
     // Only run on home page
     if (pathname === "/") {
-      // Check if there's a stored scroll target
-      const storedTarget = sessionStorage.getItem('scrollTarget');
-      
+      // Check if we're in the browser and there's a stored scroll target
+      const storedTarget = typeof window !== 'undefined' ? sessionStorage.getItem("scrollTarget") : null;
+
       if (storedTarget) {
-        // Get whether user was in mobile view when they clicked
-        const wasMobile = sessionStorage.getItem('wasMobileView') === 'true';
-        
         // Clear stored values to prevent scrolling on subsequent renders
-        sessionStorage.removeItem('scrollTarget');
-        sessionStorage.removeItem('wasMobileView');
-        
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem('scrollTarget');
+          sessionStorage.removeItem('wasMobileView');
+        }
+
         // Determine the correct target element based on current mobile state
-        const correctTarget = wasMobile && isMobile ? 
-          // If they were on mobile and still are, use mobile target
-          storedTarget : 
-          // If they were on desktop or switched views, determine appropriate target
-          storedTarget.includes('-mobile') ? 
-            // Convert mobile ID to desktop if needed
-            storedTarget.replace('-mobile', '') : 
-            // Convert desktop ID to mobile if needed
-            wasMobile ? `${storedTarget}-mobile` : storedTarget;
-        
+        let correctTarget = storedTarget;
+
+        // If on mobile, ensure we have the mobile-specific ID for known sections
+        if (isMobile) {
+          if (storedTarget === "projects-section") {
+            correctTarget = "projects-section-mobile";
+          } else if (storedTarget === "codex-section") {
+            correctTarget = "codex-section-mobile";
+          } else if (
+            !storedTarget.includes("-mobile") &&
+            (storedTarget.includes("projects") || storedTarget.includes("codex"))
+          ) {
+            // For any other projects or codex related IDs not explicitly handled
+            correctTarget = `${storedTarget}-mobile`;
+          }
+        } else {
+          // If on desktop, remove -mobile suffix if present
+          if (storedTarget.includes("-mobile")) {
+            correctTarget = storedTarget.replace("-mobile", "");
+          }
+        }
+
         // Small delay to ensure the page is fully rendered
         setTimeout(() => {
-          const targetElement = document.getElementById(correctTarget);
-          
+          const targetElement = typeof document !== 'undefined' ? document.getElementById(correctTarget) : null;
+
           if (targetElement) {
             // Smooth scroll to element
             targetElement.scrollIntoView({ behavior: "smooth" });
-            
+
             // Apply appropriate offset based on the target and device
             setTimeout(() => {
               // Apply different offsets for Projects and Codex sections
-              if (correctTarget.includes('projects')) {
+              if (correctTarget.includes("projects")) {
                 // For Projects section - reveal the Portfolio heading
-                window.scrollBy({ top: isMobile ? -100 : -100, behavior: "smooth" });
-              } else if (correctTarget.includes('codex')) {
+                if (typeof window !== 'undefined') {
+                  window.scrollBy({
+                    top: isMobile ? -100 : -100,
+                    behavior: "smooth",
+                  });
+                }
+              } else if (correctTarget.includes("codex")) {
                 // For Codex section - scroll less to show both heading and icons
-                window.scrollBy({ top: isMobile ? -40 : -40, behavior: "smooth" });
+                if (typeof window !== 'undefined') {
+                  window.scrollBy({
+                    top: isMobile ? -40 : -40,
+                    behavior: "smooth",
+                  });
+                }
               }
             }, 500);
           }
@@ -85,76 +108,64 @@ export default function Navigation() {
     open: { y: 0, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1.0] } },
   };
 
-  const handleAnchorClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    targetId: string
-  ) => {
-    e.preventDefault();
-    
-    // Check if we're already on the home page or need to navigate there first
-    const isOnHomePage = pathname === "/";
-    
-    // Close mobile menu if open
+  // Handle navigation for regular links (like /about)
+  const handleRegularLink = () => {
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
-    
-    // Add a small delay for the mobile menu to close
-    const scrollDelay = isMobileMenuOpen ? 300 : 0;
-    
-    if (isOnHomePage) {
-      // If already on home page, scroll immediately with delay
-      setTimeout(() => {
-        // Directly get the element and scroll to it
-        const element = document.getElementById(targetId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-          
-          // Apply appropriate offset after scrolling
-          setTimeout(() => {
-            // Simplified: just use consistent offset values based on section type
-            if (targetId.includes("projects")) {
-              window.scrollBy({ top: -100, behavior: "smooth" });
-            } else if (targetId.includes("codex")) {
-              window.scrollBy({ top: -40, behavior: "smooth" });
-            }
-          }, 500);
-        }
-      }, scrollDelay);
-    } else {
-      // When navigating from another page, use a direct URL with hash
-      // This approach uses the browser's native scroll-to-anchor behavior
-      // with our custom section identifier
-      
-      // Encode the proper section and view type in the URL hash
-      const sectionType = targetId.includes("projects") ? "projects" : "codex";
-      const viewType = isMobile ? "mobile" : "desktop";
-      
-      // Redirect with specific hash parameters that will be handled on page load
-      window.location.href = `/?section=${sectionType}&view=${viewType}`;
+    // Let the default navigation handle the actual navigation
+  };
+
+  // Handle anchor link clicks for navigation
+  const handleAnchorNavigation = (to: string) => {
+    // Check if we need special handling for mobile section IDs
+    let targetId = to;
+    if (isMobile) {
+      // If on mobile and targeting a section that has a mobile version, use it
+      if (to === "projects-section") {
+        targetId = "projects-section-mobile";
+      } else if (to === "codex-section") {
+        targetId = "codex-section-mobile";
+      }
     }
+
+    if (pathname !== "/") {
+      // If not on home page, store target and navigate to home with hash
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem("scrollTarget", targetId);
+        sessionStorage.setItem("wasMobileView", isMobile.toString());
+      }
+
+      // Use router.push with hash to preserve the target section
+      router.push(`/#${targetId}`);
+    }
+    // If on home page, ScrollLink will handle the scrolling
   };
 
   // Adjust section IDs based on mobile/desktop view
-  const navItems = [
+  interface NavItem {
+    name: string;
+    href: string;
+    offset?: number;
+    mobileHref?: string;
+    mobileOffset?: number;
+  }
+
+  const navItems: NavItem[] = [
     { name: "HOME", href: "/" },
     {
       name: "CODEX",
-      href: "/#codex-section",
-      onClick: (e: React.MouseEvent<HTMLAnchorElement>) =>
-        handleAnchorClick(
-          e,
-          isMobile ? "codex-section-mobile" : "codex-section"
-        ),
+      href: "codex-section",
+      offset: -100,
+      mobileHref: "codex-section-mobile",
+      mobileOffset: -80,
     },
     {
       name: "PROJECTS",
-      href: "/#projects-section",
-      onClick: (e: React.MouseEvent<HTMLAnchorElement>) =>
-        handleAnchorClick(
-          e,
-          isMobile ? "projects-section-mobile" : "projects-section"
-        ),
+      href: "projects-section",
+      offset: -100,
+      mobileHref: "projects-section-mobile",
+      mobileOffset: -80,
     },
     { name: "ABOUT", href: "/about" },
     { name: "CONTACT", href: "/contact" },
@@ -190,24 +201,56 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center gap-[68px]">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={item.onClick}
-                  className={`p-[10px] font-kanit font-normal transition-colors duration-200 ${
-                    item.name === "PROJECTS"
-                      ? "text-[24px] leading-[1.495]"
-                      : "text-[18px] leading-[1.495]"
-                  } ${
-                    pathname === item.href
-                      ? "text-[#0E0E43] font-medium"
-                      : "text-[#000000] hover:text-[#0E0E43]"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navItems.map((item) =>
+                item.href.startsWith("/") ? (
+                  // Regular Next.js Link for non-anchor links
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={handleRegularLink}
+                    className={`p-[10px] font-kanit font-normal transition-colors duration-200 ${
+                      item.name === "PROJECTS"
+                        ? "text-[24px] leading-[1.495]"
+                        : "text-[18px] leading-[1.495]"
+                    } ${
+                      pathname === item.href
+                        ? "text-[#0E0E43] font-medium"
+                        : "text-[#000000] hover:text-[#0E0E43]"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  // react-scroll Link for anchor links
+                  <ScrollLink
+                    key={item.name}
+                    to={isMobile ? item.mobileHref || item.href : item.href}
+                    spy={true}
+                    smooth={true}
+                    offset={
+                      isMobile ? item.mobileOffset || 0 : item.offset || 0
+                    }
+                    duration={500}
+                    className={`p-[10px] font-kanit font-normal transition-colors duration-200 cursor-pointer ${
+                      item.name === "PROJECTS"
+                        ? "text-[24px] leading-[1.495]"
+                        : "text-[18px] leading-[1.495]"
+                    } ${
+                      pathname === "/" &&
+                      window.location.hash.includes(item.href)
+                        ? "text-[#0E0E43] font-medium"
+                        : "text-[#000000] hover:text-[#0E0E43]"
+                    }`}
+                    onClick={() =>
+                      handleAnchorNavigation(
+                        isMobile ? item.mobileHref || item.href : item.href
+                      )
+                    }
+                  >
+                    {item.name}
+                  </ScrollLink>
+                )
+              )}
             </div>
           </div>
 
@@ -278,31 +321,53 @@ export default function Navigation() {
               className="w-full"
             >
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-100">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={(e) => {
-                      // First close the menu
-                      setIsMobileMenuOpen(false);
-
-                      // Then handle the click action
-                      if (item.onClick) {
-                        item.onClick(e);
+                {navItems.map((item) =>
+                  item.href.startsWith("/") ? (
+                    // Regular Next.js Link for non-anchor links
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={handleRegularLink}
+                      className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                        pathname === item.href
+                          ? "text-[#0E0E43] bg-gray-50"
+                          : "text-[#000000] hover:text-[#0E0E43] hover:bg-gray-50"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    // react-scroll Link for anchor links
+                    <ScrollLink
+                      key={item.name}
+                      to={isMobile ? item.mobileHref || item.href : item.href}
+                      spy={true}
+                      smooth={true}
+                      offset={
+                        isMobile ? item.mobileOffset || 0 : item.offset || 0
                       }
-                    }}
-                    className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
-                      pathname === item.href ||
-                      (pathname === "/" &&
-                        item.href.startsWith("/#") &&
-                        window.location.hash === item.href.substring(1))
-                        ? "text-[#0E0E43] bg-gray-50"
-                        : "text-[#000000] hover:text-[#0E0E43] hover:bg-gray-50"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                      duration={500}
+                      className={`block px-3 py-2 text-base font-medium transition-colors duration-200 cursor-pointer ${
+                        pathname === "/" &&
+                        typeof window !== 'undefined' && window.location.hash.includes(item.href)
+                          ? "text-[#0E0E43] bg-gray-50"
+                          : "text-[#000000] hover:text-[#0E0E43] hover:bg-gray-50"
+                      }`}
+                      onClick={() => {
+                        const targetId =
+                          isMobile && item.mobileHref
+                            ? item.mobileHref
+                            : item.href;
+                        handleAnchorNavigation(targetId);
+                        if (isMobileMenuOpen) {
+                          setIsMobileMenuOpen(false);
+                        }
+                      }}
+                    >
+                      {item.name}
+                    </ScrollLink>
+                  )
+                )}
               </div>
             </motion.div>
           )}

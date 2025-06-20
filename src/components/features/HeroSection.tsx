@@ -5,6 +5,7 @@ import Button from "../shared/Button";
 import SocialLinks from "../shared/SocialLinks";
 import AdvancedParallaxSection from "../shared/AdvancedParallaxSection";
 import ZoomTransition from "../shared/ZoomTransition";
+import { Link as ScrollLink } from 'react-scroll';
 
 export default function HeroSection() {
   return (
@@ -87,12 +88,16 @@ export default function HeroSection() {
                 </h2>
                 <p className="font-ubuntu font-medium text-base leading-[1.67] text-black">
                   In{" "}
-                  <a
-                    href="#projects-section"
-                    className="text-[#DA0B65] underline font-medium hover:opacity-80 transition-opacity"
+                  <ScrollLink
+                    to="projects-section"
+                    spy={true}
+                    smooth={true}
+                    offset={-100}
+                    duration={500}
+                    className="text-[#DA0B65] underline font-medium hover:opacity-80 transition-opacity cursor-pointer"
                   >
                     PROJECTS
-                  </a>{" "}
+                  </ScrollLink>{" "}
                   you can view all of my work or click on one of these projects
                   to learn more about them
                 </p>

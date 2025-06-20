@@ -9,7 +9,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 export default function WebshopSoleniaProject() {
   const isMobile = useIsMobile();
   const breadcrumbItems = [
-    { label: "PROJECTS", href: "/#projects-section" },
+    { label: "PROJECTS", href: "#projects-section", isAnchor: true },
     { label: "WEBSHOP - SOLENIA" },
   ];
 
