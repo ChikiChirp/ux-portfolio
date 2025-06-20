@@ -23,9 +23,25 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
   const handleAnchorClick = (e: React.MouseEvent, href: string) => {
     let targetId = href.replace(/^#/, '');
     
-    // If on mobile and this is a projects section link, use mobile-specific ID
-    if (isMobile && targetId === 'projects-section') {
+    // Desktop routing to static pages for Projects and Codex
+    if (!isMobile) {
+      if (targetId === 'projects-section') {
+        e.preventDefault();
+        router.push('/projects');
+        return;
+      }
+      
+      if (targetId === 'codex-section') {
+        e.preventDefault();
+        router.push('/codex');
+        return;
+      }
+    }
+    // On mobile, use section-specific IDs
+    else if (isMobile && targetId === 'projects-section') {
       targetId = 'projects-section-mobile';
+    } else if (isMobile && targetId === 'codex-section') {
+      targetId = 'codex-section-mobile';
     }
     
     if (isHomePage) {

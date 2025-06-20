@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Link as ScrollLink } from "react-scroll";
 
 export default function Navigation() {
@@ -60,29 +60,45 @@ export default function Navigation() {
     }
   }, []);
 
-  // Use useMemo to prevent navItems from being recreated on every render
-  const navItems = useMemo<NavItem[]>(
-    () => [
-      { name: "HOME", href: "/" },
-      {
-        name: "CODEX",
-        href: "codex-section",
-        offset: desktopOffset,
-        mobileHref: "codex-section-mobile",
-        mobileOffset: mobileOffset,
-      },
-      {
-        name: "PROJECTS",
-        href: "projects-section",
-        offset: desktopOffset,
-        mobileHref: "projects-section-mobile",
-        mobileOffset: mobileOffset,
-      },
-      { name: "ABOUT", href: "/about" },
-      { name: "CONTACT", href: "/contact" },
-    ],
-    [desktopOffset, mobileOffset]
-  );
+  // Define base nav items that don't depend on client-side state
+  const baseNavItems: NavItem[] = [
+    { name: "HOME", href: "/" },
+    {
+      name: "CODEX",
+      href: "/codex", // Always use static page for SSR consistency
+      offset: desktopOffset,
+      mobileHref: "codex-section-mobile",
+      mobileOffset: mobileOffset,
+    },
+    {
+      name: "PROJECTS",
+      href: "/projects", // Always use static page for SSR consistency
+      offset: desktopOffset,
+      mobileHref: "projects-section-mobile",
+      mobileOffset: mobileOffset,
+    },
+    { name: "ABOUT", href: "/about" },
+    { name: "CONTACT", href: "/contact" },
+  ];
+  
+  // Use the items directly for SSR and initial render
+  const [navItems, setNavItems] = useState<NavItem[]>(baseNavItems);
+  
+  // Update nav items on client side after hydration
+  useEffect(() => {
+    if (isMobile) {
+      // For mobile, update CODEX and PROJECTS to use anchor links
+      setNavItems(prev => prev.map(item => {
+        if (item.name === "CODEX") {
+          return { ...item, href: "codex-section" };
+        }
+        if (item.name === "PROJECTS") {
+          return { ...item, href: "projects-section" };
+        }
+        return item;
+      }));
+    }
+  }, [isMobile]);
 
   // Effect to handle scrolling to target when navigating from another page
   useEffect(() => {
@@ -265,55 +281,36 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center gap-[68px]">
-              {navItems.map((item: NavItem) =>
-                item.href.startsWith("/") ? (
-                  // Regular Next.js Link for non-anchor links
+              {/* Use the same component type consistently for both server and client render */}
+              {navItems.map((item: NavItem) => {
+                // For all items, use Next.js Link component for consistent SSR
+                return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    onClick={handleRegularLink}
+                    onClick={item.href.startsWith("/") ? handleRegularLink : (e) => {
+                      e.preventDefault();
+                      // Only handle anchor navigation client-side
+                      if (typeof window !== "undefined" && !item.href.startsWith("/")) {
+                        handleAnchorNavigation(
+                          isMobile ? item.mobileHref || item.href : item.href
+                        );
+                      }
+                    }}
                     className={`p-[10px] font-kanit font-normal transition-colors duration-200 ${
                       item.name === "PROJECTS"
                         ? "text-[24px] leading-[1.495]"
                         : "text-[18px] leading-[1.495]"
                     } ${
-                      pathname === item.href
+                      (pathname === item.href || (pathname === "/" && isHashMatch[item.href]))
                         ? "text-[#0E0E43] font-medium"
                         : "text-[#000000] hover:text-[#0E0E43]"
                     }`}
                   >
                     {item.name}
                   </Link>
-                ) : (
-                  // react-scroll Link for anchor links
-                  <ScrollLink
-                    key={item.name}
-                    to={isMobile ? item.mobileHref || item.href : item.href}
-                    spy={true}
-                    smooth={true}
-                    offset={
-                      isMobile ? item.mobileOffset || 0 : item.offset || 0
-                    }
-                    duration={500}
-                    className={`p-[10px] font-kanit font-normal transition-colors duration-200 cursor-pointer ${
-                      item.name === "PROJECTS"
-                        ? "text-[24px] leading-[1.495]"
-                        : "text-[18px] leading-[1.495]"
-                    } ${
-                      pathname === "/" && isHashMatch[item.href]
-                        ? "text-[#0E0E43] font-medium"
-                        : "text-[#000000] hover:text-[#0E0E43]"
-                    }`}
-                    onClick={() =>
-                      handleAnchorNavigation(
-                        isMobile ? item.mobileHref || item.href : item.href
-                      )
-                    }
-                  >
-                    {item.name}
-                  </ScrollLink>
-                )
-              )}
+                );
+              })}
             </div>
           </div>
 
