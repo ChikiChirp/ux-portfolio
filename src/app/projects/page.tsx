@@ -140,7 +140,7 @@ export default function ProjectsPage() {
         >
           <div className="flex flex-col items-center gap-[21px] pt-0 pb-[20]">
             {/* PROJECTS Title - Changed to w-full for full-width banner */}
-            <div className="w-full min-h-[15vh] md:min-h-[25vh] bg-gradient-to-r from-[#CDE1FB] to-[#EDF5FF] flex items-center mt-23">
+            <div className="w-full min-h-[15vh] md:min-h-[25vh] bg-gradient-to-r from-[#CDE1FB] to-[#EDF5FF] flex items-center mt-2">
               <div className="w-full max-w-[1032px] mx-auto px-6 sm:px-8">
                 <h1 className="text-[32px] font-ubuntu-sans font-extrabold leading-[1.2] text-[#1B1B3E]">
                   PROJECTS

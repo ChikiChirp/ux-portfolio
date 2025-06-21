@@ -5,20 +5,16 @@ import Button from "@/components/shared/Button";
 import EnhancedParallax from "@/components/shared/EnhancedParallax";
 import ParallaxSection from "@/components/shared/ParallaxSection";
 import SocialLinks from "@/components/shared/SocialLinks";
+import MobileFooterSocialLinks from "@/components/shared/MobileFooterSocialLinks";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useScrollSections } from "@/hooks/useScrollSections";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-// Dynamically import HeroSection components with no SSR
+// Dynamically import HeroSection component with no SSR
 const HeroSectionMobile = dynamic(
   () => import("@/components/features/HeroSectionMobile"),
-  { ssr: false }
-);
-
-const CodexSectionMobile = dynamic(
-  () => import("@/components/features/CodexSectionMobile"),
   { ssr: false }
 );
 
@@ -269,7 +265,15 @@ export default function Home() {
     return (
       <div className="flex flex-col w-full bg-gradient-to-b from-[#BCD8FF] via-[#DFE7F3] to-[#FAE4DD]">
         <HeroSectionMobile />
-        <CodexSectionMobile />
+        {/* CodexSectionMobile removed - now exists as a separate static page at /codex-mobile */}
+        
+        {/* Footer: restored from CodexSectionMobile */}
+        <footer className="w-full mt-auto py-6 px-[30px] bg-gradient-to-b from-[#7a9bd5] from-[23.558%] via-[#9cbaea] via-[67.308%] to-[#bdd9ff] flex flex-col items-center justify-center gap-y-5">
+          <MobileFooterSocialLinks />
+          <p className="text-[#535354] text-[10px] font-light font-['Ubuntu'] leading-normal">
+            Nikita Quazi 2025
+          </p>
+        </footer>
       </div>
     );
   }

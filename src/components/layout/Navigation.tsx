@@ -67,7 +67,7 @@ export default function Navigation() {
       name: "CODEX",
       href: "/codex", // Always use static page for SSR consistency
       offset: desktopOffset,
-      mobileHref: "codex-section-mobile",
+      mobileHref: "/codex-mobile", // Use the new static mobile page
       mobileOffset: mobileOffset,
     },
     {
@@ -87,10 +87,10 @@ export default function Navigation() {
   // Update nav items on client side after hydration
   useEffect(() => {
     if (isMobile) {
-      // For mobile, update CODEX and PROJECTS to use anchor links
+      // For mobile, update PROJECTS to use anchor links and CODEX to use static page
       setNavItems(prev => prev.map(item => {
         if (item.name === "CODEX") {
-          return { ...item, href: "codex-section" };
+          return { ...item, href: "/codex-mobile" }; // Use static mobile Codex page
         }
         if (item.name === "PROJECTS") {
           return { ...item, href: "projects-section" };
@@ -202,12 +202,7 @@ export default function Navigation() {
   };
 
   // Handle navigation for regular links (like /about)
-  const handleRegularLink = () => {
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
-    // Let the default navigation handle the actual navigation
-  };
+  // Navigation functions have been inlined directly in onClick handlers
 
   // Update hash match state on client-side only
   useEffect(() => {
@@ -239,12 +234,26 @@ export default function Navigation() {
     if (pathname !== "/") {
       // If not on home page, store target and navigate to home with hash
       if (typeof window !== "undefined") {
+        // Clear any existing stored targets first
+        sessionStorage.removeItem("scrollTarget");
+        sessionStorage.removeItem("wasMobileView");
+        
+        // Set the new target
         sessionStorage.setItem("scrollTarget", targetId);
         sessionStorage.setItem("wasMobileView", isMobile.toString());
+        
+        // Add a timestamp to force router to recognize this as a new navigation
+        const timestamp = new Date().getTime();
+        sessionStorage.setItem("navTimestamp", timestamp.toString());
       }
 
-      // Use router.push with hash to preserve the target section
-      router.push(`/#${targetId}`);
+      // Use router.push with hash and timestamp to ensure navigation triggers
+      const timestamp = new Date().getTime();
+      router.push(`/#${targetId}?t=${timestamp}`);
+    } else if (typeof window !== "undefined") {
+      // Even on home page, ensure we're clearing any stale navigation state
+      sessionStorage.removeItem("scrollTarget");
+      sessionStorage.removeItem("wasMobileView");
     }
     // If on home page, ScrollLink will handle the scrolling
   };
@@ -253,7 +262,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className="w-full fixed top-0 z-50 mobile-nav mobile-fixed"
+      className={`w-full fixed top-0 z-50 mobile-nav mobile-fixed ${!isMobile ? 'backdrop-blur-md bg-white/30 border-b border-white/20 shadow-sm' : ''}`}
       style={{ backgroundColor: isMobile ? "#BCD8FF" : "transparent" }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
@@ -288,23 +297,41 @@ export default function Navigation() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    onClick={item.href.startsWith("/") ? handleRegularLink : (e) => {
-                      e.preventDefault();
-                      // Only handle anchor navigation client-side
-                      if (typeof window !== "undefined" && !item.href.startsWith("/")) {
-                        handleAnchorNavigation(
-                          isMobile ? item.mobileHref || item.href : item.href
-                        );
+                    onClick={item.href.startsWith("/") ? 
+                      (e) => {
+                        e.preventDefault();
+                        if (isMobileMenuOpen) {
+                          setIsMobileMenuOpen(false);
+                        }
+                        
+                        // Clear any stored navigation state
+                        if (typeof window !== "undefined") {
+                          sessionStorage.removeItem("scrollTarget");
+                          sessionStorage.removeItem("wasMobileView");
+                        }
+                        
+                        // Force navigation using router.push
+                        router.push(item.href);
+                      } 
+                      : 
+                      (e) => {
+                        e.preventDefault();
+                        // Only handle anchor navigation client-side
+                        if (typeof window !== "undefined" && !item.href.startsWith("/")) {
+                          handleAnchorNavigation(
+                            isMobile ? item.mobileHref || item.href : item.href
+                          );
+                        }
                       }
-                    }}
-                    className={`p-[10px] font-kanit font-normal transition-colors duration-200 ${
+                    }
+                    className={`p-[10px] font-kanit font-normal transition-all duration-200 relative ${
                       item.name === "PROJECTS"
                         ? "text-[24px] leading-[1.495]"
                         : "text-[18px] leading-[1.495]"
                     } ${
                       (pathname === item.href || (pathname === "/" && isHashMatch[item.href]))
-                        ? "text-[#0E0E43] font-medium"
-                        : "text-[#000000] hover:text-[#0E0E43]"
+                        ? "text-[#0E0E43] font-medium after:content-[\"\"] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-1 after:scale-x-100 after:origin-center after:bg-[#3B5F8A]/70 after:backdrop-blur-sm after:rounded-full after:shadow-sm after:border-t after:border-white/50 after:transition-transform after:duration-500 after:ease-out"
+                        : "text-[#000000] hover:text-[#0E0E43] hover:after:content-[\"\"] hover:after:absolute hover:after:-bottom-1 hover:after:left-0 hover:after:w-full hover:after:scale-x-100 hover:after:origin-left hover:after:h-0.5 hover:after:bg-[#3B5F8A]/40 hover:after:backdrop-blur-sm hover:after:rounded-full hover:after:transition-all hover:after:duration-300 after:content-[\"\"] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:scale-x-0 after:origin-left after:bg-[#3B5F8A]/40 after:transition-transform after:duration-300"
                     }`}
                   >
                     {item.name}
@@ -387,7 +414,21 @@ export default function Navigation() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      onClick={handleRegularLink}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (isMobileMenuOpen) {
+                          setIsMobileMenuOpen(false);
+                        }
+                        
+                        // Clear any stored navigation state
+                        if (typeof window !== "undefined") {
+                          sessionStorage.removeItem("scrollTarget");
+                          sessionStorage.removeItem("wasMobileView");
+                        }
+                        
+                        // Force navigation using router.push
+                        router.push(item.href);
+                      }}
                       className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
                         pathname === item.href
                           ? "text-[#0E0E43] bg-gray-50"
