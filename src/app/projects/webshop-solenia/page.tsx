@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import ParallaxSection from "@/components/shared/ParallaxSection";
 import SocialLinks from "@/components/shared/SocialLinks";
 import Breadcrumb from "@/components/shared/Breadcrumb";
@@ -31,14 +32,26 @@ export default function WebshopSoleniaProject() {
           {isMobile ? (
             /* Mobile View with SVG */
             <div className="w-screen mt-8 mb-12">
-              <Image
-                src="/figma-assets/Solenia-mobile.svg"
-                alt="Solenia Project Mobile View"
-                width={1000}
-                height={1000}
-                className="w-screen h-auto object-contain max-w-none"
-                priority
-              />
+              <Link
+                href="https://solenia.netlify.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group"
+              >
+                <Image
+                  src="/figma-assets/Solenia-mobile.svg"
+                  alt="Solenia Project Mobile View - Click to visit live site"
+                  width={1000}
+                  height={1000}
+                  className="w-screen h-auto object-contain max-w-none cursor-pointer group-hover:opacity-90 transition-opacity duration-200"
+                  priority
+                />
+                <div className="text-center mt-4 px-4">
+                  <span className="text-lg font-kanit font-normal text-[#ff0364] underline group-hover:text-[#da0b65] transition-colors duration-200">
+                    Visit Live Site: solenia.netlify.app
+                  </span>
+                </div>
+              </Link>
             </div>
           ) : (
             /* Desktop View with original content */
@@ -84,6 +97,19 @@ export default function WebshopSoleniaProject() {
                       <p className="text-lg font-kanit font-normal text-black whitespace-nowrap">
                         Branding, UI Design & Website Design
                       </p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-kanit font-medium text-black">
+                        Link
+                      </p>
+                      <a
+                        className="text-lg font-kanit font-normal text-black whitespace-nowrap"
+                        href="https://solenia.netlify.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span className="underline">solenia.netlify.app</span>
+                      </a>
                     </div>
                   </div>
                 </div>
