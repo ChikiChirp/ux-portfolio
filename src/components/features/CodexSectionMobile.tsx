@@ -4,42 +4,80 @@ import Image from "next/image";
 import Link from "next/link";
 import MobileFooterSocialLinks from "../shared/MobileFooterSocialLinks";
 
+// Updated skills data to match the main pages
+const skills = {
+  ux: [
+    "Design Thinking",
+    "User Research",
+    "Workshops",
+    "Accessibility",
+    "Agile frameworks",
+  ],
+  ui: [
+    "Prototyping",
+    "Design System",
+    "Interaction Design",
+    "Wireframe",
+    "Responsive Design",
+  ],
+};
+
+// Using the combined tools.svg instead of static image
+const toolsSvg = "/figma-assets/tools.svg";
+
 export default function CodexSectionMobile() {
   return (
-    <div id="codex-section-mobile" className="min-h-screen flex flex-col items-center bg-[#DCEBFF]">
+    <div
+      id="codex-section-mobile"
+      className="min-h-screen flex flex-col items-center bg-[#DCEBFF]"
+    >
       {/* Main content section */}
       <section className="w-full max-w-md px-[30px] py-10 flex flex-col items-center gap-y-7">
         <h2 className="text-[#030303] text-lg font-ubuntu-sans-condensed-bold font-bold uppercase tracking-wider mb-8 text-center">
           CODEX
         </h2>
 
-        {/* Tools Section - Using Static Figma Image */}
-        <div className="mb-8">
-          <Image
-            src="/figma-assets/Frame 1000004342.svg"
-            alt="A grid of tool icons including Figma, Procreate, Adobe Illustrator, Adobe XD, React, JavaScript, CSS, and HTML5"
-            width={310} // Adjusted to fit container width with padding
-            height={190} // Adjusted to maintain aspect ratio
-            className="object-contain mx-auto"
-          />
+        {/* Tools Section - Using tools.svg */}
+        <div className="mb-8 bg-[#DDEDFF] p-4 rounded-[5px] border border-[#F8FDFE]/80 w-full max-w-[290px]">
+          <h3 className="text-[16px] font-ubuntu-sans font-extrabold text-center mb-4 text-[#0D0D0D]">
+            Tools
+          </h3>
+          <div className="flex items-center justify-center">
+            <Image
+              src={toolsSvg}
+              alt="Tools including Figma, Procreate, Adobe Illustrator, Adobe XD, React, JavaScript, CSS, and HTML5"
+              width={141}
+              height={76}
+              className="w-full h-auto max-w-[250px]"
+            />
+          </div>
         </div>
 
-        {/* Skills Section - Using Static Figma Images */}
-        <div className="space-y-4 mb-8">
-          <Image
-            src="/figma-assets/Skills_UX_Frame.svg"
-            alt="UX Skills including Design Process, User Research, Gamification, Accessibility, and Agile Frameworks"
-            width={310}
-            height={160}
-            className="object-contain mx-auto"
-          />
-          <Image
-            src="/figma-assets/Skills_UI_Frame.svg"
-            alt="UI Skills including Prototyping, Design System, Interaction Design, Heuristic Evaluation, and Responsive Design"
-            width={310}
-            height={160}
-            className="object-contain mx-auto"
-          />
+        {/* Skills Section - Dynamic Content */}
+        <div className="space-y-4 mb-8 w-full max-w-[290px]">
+          {/* UX Skills Card */}
+          <div className="bg-[#DDEDFF] p-4 rounded-[5px] border border-[#F8FDFE]/80">
+            <h3 className="text-[16px] font-ubuntu-sans font-extrabold text-center mb-3 text-[#0D0D0D]">
+              UX Skills
+            </h3>
+            <ul className="font-ubuntu-sans font-medium text-[15px] text-[#0D0D0D] leading-relaxed space-y-1 text-center">
+              {skills.ux.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* UI Skills Card */}
+          <div className="bg-[#DDEDFF] p-4 rounded-[5px] border border-[#F8FDFE]/80">
+            <h3 className="text-[16px] font-ubuntu-sans font-extrabold text-center mb-3 text-[#0D0D0D]">
+              UI Skills
+            </h3>
+            <ul className="font-ubuntu-sans font-medium text-[15px] text-[#0D0D0D] leading-relaxed space-y-1 text-center">
+              {skills.ui.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Descriptive Paragraph */}

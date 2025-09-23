@@ -38,18 +38,11 @@ export default function AboutSectionMobile() {
         {/* Work Experience Section - Styles from Figma */}
         <section className="w-full flex flex-col items-start text-left gap-[11px]">
           <h2 className="text-[16px] font-extrabold leading-normal font-['Ubuntu_Sans']">
-            Work Expericence
+            Past work experience
           </h2>
           <div className="font-['Ubuntu_Sans'] font-medium text-[15px] leading-normal">
-            <p>Seven years of experience as a licensed Biomedical Scientist</p>
+            <p>Licensed Biomedical Scientist</p>
             <p>at Uppsala University Hospital</p>
-            <div className="h-[0.75em]"></div>{" "}
-            {/* Spacer based on line height normal (1.5 * 15px text = 22.5px line height. 0.5em of text = 7.5px. Let's try 0.75em = ~11px to match gap */}
-            <p>
-              Dept. of Clinical Physiology and Cardiology/Pulmonary Medicine
-            </p>
-            <div className="h-[0.75em]"></div> {/* Spacer */}
-            <p>Dept. of Nuclearmedicine</p>
           </div>
         </section>
 
@@ -59,9 +52,9 @@ export default function AboutSectionMobile() {
             <h3 className="font-['Ubuntu_Sans'] font-extrabold text-[16px] text-[#0D0D0D] mb-2.5 text-center">
               Professional skills
             </h3>
-            <ul className="font-['Ubuntu_Sans'] font-medium text-[15px] text-[#0D0D0D] leading-relaxed space-y-0.5 self-center mr-[18px]">
+            <ul className="font-['Ubuntu_Sans'] font-medium text-[15px] text-[#0D0D0D] leading-relaxed space-y-0.5 self-center mr-[20px]">
               <li>Fast learner</li>
-              <li>Business analysis</li>
+              <li>Solution-oriented</li>
               <li>Quality-oriented</li>
               <li>Team player</li>
             </ul>
@@ -74,7 +67,7 @@ export default function AboutSectionMobile() {
             <h3 className="font-['Ubuntu_Sans'] font-extrabold text-[16px] text-[#0D0D0D] mb-2.5 text-center">
               Personal attributes
             </h3>
-            <ul className="font-['Ubuntu_Sans'] font-medium text-[15px] text-[#0D0D0D] leading-relaxed space-y-0.5 ml-[50px]">
+            <ul className="font-['Ubuntu_Sans'] font-medium text-[15px] text-[#0D0D0D] leading-relaxed space-y-0.5 self-center mr-[40px]">
               <li>Creative</li>
               <li>Compassionate</li>
               <li>Curious</li>

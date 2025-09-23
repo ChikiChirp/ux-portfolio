@@ -39,20 +39,15 @@ export default function About() {
               </p>
             </div>
 
-            {/* Work Experience */}
             <div className="flex flex-col gap-1">
               <h2 className="text-xl font-bold font-ubuntu-sans text-black">
-                Work Experience
+                Past work experience
               </h2>
               <p className="text-lg font-ubuntu-sans font-medium text-black">
-                Seven years of experience as a licensed Biomedical Scientist at
-                Uppsala University Hospital
+                Licensed Biomedical Scientist
               </p>
               <p className="text-lg font-ubuntu-sans font-medium text-black">
-                Dept. of Clinical Physiology and Cardiology/Pulmonary Medicine
-              </p>
-              <p className="text-lg font-ubuntu-sans font-medium text-black">
-                Dept. of Nuclearmedicine
+                at Uppsala University Hospital
               </p>
             </div>
 
@@ -64,7 +59,7 @@ export default function About() {
                 </h2>
                 <ul className="list-none text-lg font-ubuntu-sans font-medium text-black">
                   <li>Fast learner</li>
-                  <li>Business analysis</li>
+                  <li>Solution-oriented</li>
                   <li>Quality-oriented</li>
                   <li>Team player</li>
                 </ul>

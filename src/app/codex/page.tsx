@@ -11,9 +11,9 @@ import CodexSectionMobile from "@/components/features/CodexSectionMobile";
 // Define skills and tools locally since they're not imported from a data file
 const skills = {
   ux: [
-    "Design Process",
+    "Design Thinking",
     "User Research",
-    "Gamification",
+    "Workshops",
     "Accessibility",
     "Agile frameworks",
   ],
@@ -21,61 +21,13 @@ const skills = {
     "Prototyping",
     "Design System",
     "Interaction Design",
-    "Heuristic Evaluation",
+    "Wireframe",
     "Responsive Design",
   ],
 };
 
-const tools = [
-  {
-    name: "Figma",
-    icon: "/figma-assets/figma-icon.svg",
-    iconType: "svg" as const,
-    width: 42,
-  },
-  {
-    name: "Procreate",
-    icon: "/figma-assets/procreate-icon.png",
-    iconType: "image" as const,
-    width: 55,
-  },
-  {
-    name: "Adobe\nIllustrator",
-    icon: "/figma-assets/adobe-illustrator-icon.png",
-    iconType: "image" as const,
-    width: 61,
-  },
-  {
-    name: "Adobe\nXd",
-    icon: "/figma-assets/adobe-xd-icon.svg",
-    iconType: "svg" as const,
-    width: 52,
-  },
-  {
-    name: "React",
-    icon: "/figma-assets/react-icon.svg",
-    iconType: "svg" as const,
-    width: 36,
-  },
-  {
-    name: "JavaScript",
-    icon: "/figma-assets/javascript-icon.svg",
-    iconType: "svg" as const,
-    width: 57,
-  },
-  {
-    name: "CSS",
-    icon: "/figma-assets/css-icon.svg",
-    iconType: "svg" as const,
-    width: 28,
-  },
-  {
-    name: "HTML5",
-    icon: "/figma-assets/html-icon.svg",
-    iconType: "svg" as const,
-    width: 43,
-  },
-];
+// Using the combined tools.svg instead of individual icons
+const toolsSvg = "/figma-assets/tools.svg";
 export default function CodexPage() {
   const isMobile = useIsMobile();
 
@@ -159,37 +111,14 @@ export default function CodexPage() {
                   <h2 className="text-[24px] font-ubuntu-sans font-semibold leading-[1.2] text-black mb-[27px]">
                     Tools
                   </h2>
-                  <div className="grid grid-cols-4 gap-x-[16px] gap-y-[12px] justify-items-center">
-                    {tools.map((tool, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-col items-center gap-[3px] text-center"
-                        style={{ width: `${tool.width}px` }}
-                      >
-                        <div className="w-6 h-6 flex items-center justify-center">
-                          {tool.iconType === "svg" ? (
-                            <Image
-                              src={tool.icon}
-                              alt={tool.name}
-                              width={24}
-                              height={24}
-                              className="w-6 h-6"
-                            />
-                          ) : (
-                            <Image
-                              src={tool.icon}
-                              alt={tool.name}
-                              width={24}
-                              height={24}
-                              className="w-6 h-6 object-contain"
-                            />
-                          )}
-                        </div>
-                        <span className="text-[12px] font-ubuntu-sans font-medium leading-[1.5] text-black whitespace-pre-line text-center">
-                          {tool.name}
-                        </span>
-                      </div>
-                    ))}
+                  <div className="flex items-center justify-center">
+                    <Image
+                      src={toolsSvg}
+                      alt="Tools"
+                      width={141}
+                      height={76}
+                      className="w-full h-auto max-w-[257px]"
+                    />
                   </div>
                 </div>
               </div>
