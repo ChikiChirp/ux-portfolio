@@ -10,6 +10,7 @@ import {
 import "./globals.css";
 import Navigation from "@/components/layout/Navigation";
 import SmoothScrollProvider from "@/components/shared/SmoothScrollProvider";
+import RedirectModal from "@/components/shared/RedirectModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,29 +47,30 @@ const kanit = Kanit({
 });
 
 const defaultTitle = "Nikita Quazi - UX/UI Designer with Front-end Skills";
-const defaultDescription = "UX/UI designer portfolio combining analytical thinking with creative expression to create accessible and engaging digital experiences.";
+const defaultDescription =
+  "UX/UI designer portfolio combining analytical thinking with creative expression to create accessible and engaging digital experiences.";
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  viewportFit: 'cover',
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
   title: defaultTitle,
   description: defaultDescription,
-  metadataBase: new URL('https://nikitaquazi.netlify.app'),
+  metadataBase: new URL("https://nikitaquazi.netlify.app"),
   openGraph: {
     title: defaultTitle,
     description: defaultDescription,
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://nikitaquazi.netlify.app',
+    type: "website",
+    locale: "en_US",
+    url: "https://nikitaquazi.netlify.app",
     siteName: defaultTitle,
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: defaultTitle,
     description: defaultDescription,
   },
@@ -87,6 +89,7 @@ export default function RootLayout({
       >
         <SmoothScrollProvider>
           <Navigation />
+          <RedirectModal />
           <main className="min-h-screen">{children}</main>
         </SmoothScrollProvider>
       </body>
