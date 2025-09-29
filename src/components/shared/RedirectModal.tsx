@@ -49,7 +49,7 @@ export default function RedirectModal() {
           <div className="p-5">
             <h2 className="text-lg font-semibold">New site incoming!</h2>
             <p className="mt-1 text-lg opacity-80">
-              You will be redirected to our new site in {secondsLeft}s.
+              You will be redirected to my new site in {secondsLeft}s.
             </p>
 
             {/* Tenor GIF */}
